@@ -5,18 +5,23 @@ public abstract class Member {
     protected String password;
     protected int points;
 
-    // No-Arguments Consstructor
+    // Parameterized Constructor
+    public Member(String name, String username, String password) {
+    	this.name = name;
+    	this.userName = username;
+    	this.password = password;
+    }
+    
+    // No-Arguments Constructor
     public Member() {}
 
-    // Create new Member
-    public boolean createMember(String name, String userName,  String password) {
-        this.name = name;
-        this.userName = userName;
-        this.password = password;
-        return true;
-    }
-
-
+    // Abstract Methods
+//    public abstract Member createMemeber(String name, String username, String password);
+    
+    public abstract void setPoints(int distance);
+    
+    public abstract void substractPoints(double distance);
+    
     // Setters & Getters
     public void setName(String name) {
         this.name = name;
@@ -29,8 +34,6 @@ public abstract class Member {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public abstract void setPoints(int distance);
 
     public String getName() {
         return name;

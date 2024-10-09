@@ -1,24 +1,33 @@
 import java.util.Scanner;
 public class mainProgram {
 	public static void main(String[] args) {
-		Flight f1 = new Flight("Riyadh", "Jeddah", 954.6);
-		System.out.println(f1.getflightNumber());
-
-		Flight f2 = new Flight("Riyadh", "ALUla", 1040.6);
-		System.out.println(f2.getflightNumber());
-		Scanner input = new Scanner(System.in);
+		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
+		UserInterface userInterface = new UserInterface();
+		
 		boolean state = true;
 		
-		while(state) {
-			System.out.println("======Welcome to Loyalty Program======");
-			System.out.println("1. Register a new member");
-			System.out.println("2. Login");
-			System.out.println("Q. Quit Program");
+		while (state) {
+			String choice = userInterface.firstInterface(); // possible values for choice is ["1" || "2" || "q"]
 			
-			String choice = input.next();
 			switch (choice) {
-			case "1":
-				
+			
+				// ===[Register]=== //
+				case "1":
+					if (userInterface.backToMainMenu()) // possible values is [true => back to main menu || false => continue]
+						break;
+					Member member = userInterface.createMember();
+					loyaltyProgram.addMembers(member);
+					break;
+				// ===[Login]=== //
+				case "2":
+					System.out.println("Login");
+					break;
+					
+				// ===[Quit]=== //
+				case "q":
+					System.out.println("Quit");
+					state = false;
+					break;
 			}
 		}
 	}
