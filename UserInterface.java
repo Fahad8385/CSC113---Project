@@ -7,7 +7,7 @@ public class UserInterface {
 
     // First Interface
     public String firstInterface() {
-        System.out.println("======Welcome to Loyalty Program======");
+        System.out.println("====== [Welcome to Airline Loyalty Program] ======");
 			System.out.println("1. Register a new member");
 			System.out.println("2. Login");
 			System.out.println("Q. Quit Program");
@@ -45,11 +45,12 @@ public class UserInterface {
     	System.out.print("Name: ");
     	String name = scanner.next();
     	System.out.print("Username: ");
-    	String username = scanner.next();
+    	String username = scanner.next().toLowerCase();
     	System.out.print("password: ");
     	String password = scanner.next();
     	Member member = new SilverMember(name, username, password);
-    	System.out.println("Member has created successfully");
     	return member;
     }
+    
+    //
 }
