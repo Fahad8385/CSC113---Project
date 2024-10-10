@@ -20,7 +20,12 @@ public class mainProgram {
 					break;
 				// ===[Login]=== //
 				case "2":
-					System.out.println("Login");
+					if (userInterface.backToMainMenu()) // possible values is [true => back to main menu || false => continue]
+						break;
+					boolean isExist = loyaltyProgram.login();
+					if (isExist) {
+						System.out.println("Phase #2");
+					}
 					break;
 					
 				// ===[Quit]=== //
