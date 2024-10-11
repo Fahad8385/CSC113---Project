@@ -3,11 +3,11 @@ public class Flight {
     private String flightNumber = "R1";
     private static int counter;
     private Member [] passengers;
-    private String from; // "e.g" : riyadh
-    private String to; // "e.g" : jeddah
+    private String from; // "e.g" : Riyadh
+    private String to; // "e.g" : Jeddah
     private double distance; // 954,6 KM - I look up for it in google (:
 
-    // Paramertized Constructor
+    // Parametrized Constructor
     public Flight(String from, String to, double distance) {
         flightNumber += counter++;
         this.from = from;
@@ -15,6 +15,8 @@ public class Flight {
         this.distance = distance;
         passengers = new Member[10];
     }
+
+    // Get flight member
     public String getflightNumber() {
         return flightNumber;
     }

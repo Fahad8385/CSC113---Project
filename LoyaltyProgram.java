@@ -17,14 +17,14 @@ public class LoyaltyProgram {
 	public boolean addMembers(Member member) {
 		if (numOfMembers < members.length && !searchForMemeber(member)) {
 			members[numOfMembers++] = new SilverMember(member);
-	    	System.out.println("Member has created successfully");
+	    	System.out.println("Member has been created successfully");
 			return true;
 		}
 		if (searchForMemeber(member)) {
-			System.out.println("Member is already existed");
+			System.out.println("Member already exists");
 		}
 		if (numOfMembers == members.length) {
-			System.out.println("Sorry... You reached maximum of members");
+			System.out.println("Sorry... You have reached maximum of members");
 		}
 		return false;
 	}

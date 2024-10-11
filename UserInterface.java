@@ -7,16 +7,15 @@ public class UserInterface {
 
     // First Interface
     public String firstInterface() {
-        System.out.println("====== [Welcome to Airline Loyalty Program] ======");
+        	System.out.println("====== [Welcome to Airline Loyalty Program] ======");
 			System.out.println("1. Register a new member");
 			System.out.println("2. Login");
 			System.out.println("Q. Quit Program");
-			
 			System.out.print("Please enter your choice (1, 2 or Q): ");
             String choice = scanner.next().toLowerCase();
             
-            while (!(choice.equalsIgnoreCase("1") || choice.equalsIgnoreCase("2") || choice.equalsIgnoreCase("q"))) {
-                System.err.println("Oops.. You entered incorrect value.");
+            while (choice.isEmpty() || !(choice.equals("1") || choice.equals("2") || choice.equals("q"))) {
+                System.out.println("Oops.. You entered incorrect value.");
                 System.out.print("Please enter your choice (1, 2 or Q): ");
                 choice = scanner.next().toLowerCase();
             }
@@ -28,8 +27,8 @@ public class UserInterface {
     	System.out.println("Do you want to return to the main menu?");
     	System.out.print("Please enter your choice (Yes or No): ");
     	String backToMain = scanner.next().toLowerCase();
-    	while (!(backToMain.equalsIgnoreCase("yes") || backToMain.equalsIgnoreCase("no"))) {
-    		System.err.println("Oops.. You entered incorrect value.");
+    	while (!(backToMain.equals("yes") || backToMain.equals("no"))) {
+    		System.out.println("Oops.. You entered incorrect value.");
     		System.out.print("Please enter your choice (Yes or No): ");
     		backToMain = scanner.next().toLowerCase();
     	}
@@ -42,15 +41,37 @@ public class UserInterface {
     
     // Create Member
     public Member createMember() {
-    	System.out.print("Name: ");
-    	String name = scanner.next();
+    	System.out.print("First name: ");
+    	String fname = scanner.next();
+		System.out.print("Last name: ");
+		String lname = scanner.next();
     	System.out.print("Username: ");
     	String username = scanner.next().toLowerCase();
     	System.out.print("password: ");
     	String password = scanner.next();
+		String name = fname + " " + lname;
     	Member member = new SilverMember(name, username, password);
     	return member;
     }
     
-    //
+    // Logged in interface
+	public String loginInterface() {
+		System.out.println("====== [Welcome Back <member name?>!] ======");
+		System.out.println("1. Book a flight");
+		System.out.println("2. Cancel a flight");
+		System.out.println("3. View Points");
+		System.out.println("4. Log out");
+		System.out.println("5. Quit Program");
+
+		System.out.print("Please enter your choice: ");
+		String choice = scanner.next().toLowerCase();
+
+		while (!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("5"))) {
+			System.out.println("Oops.. You entered incorrect value.");
+
+			System.out.print("Please enter your choice: ");
+			choice = scanner.next().toLowerCase();
+		}
+		return choice;
+	}
 }

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 public class mainProgram {
 	public static void main(String[] args) {
+
 		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
 		UserInterface userInterface = new UserInterface();
 		
@@ -24,7 +25,19 @@ public class mainProgram {
 						break;
 					boolean isExist = loyaltyProgram.login();
 					if (isExist) {
-						System.out.println("Phase #2");
+						choice = userInterface.loginInterface();
+						switch (choice) {
+							case "1":
+								break;
+							case "2":
+								break;
+							case "3":
+								break;
+							case "4":
+								break;
+							case "5":
+								break;
+						}
 					}
 					break;
 					
