@@ -6,7 +6,7 @@ public class LoyaltyProgram {
 	private Member [] members; // We assume that the system can take max 5 members
 	private Flight [] flights;
 	private int numOfMembers;
-	private int numOfFlights;
+	private static int numOfFlights;
 	
 	// Parameterized Constructor
 	public LoyaltyProgram() {
@@ -28,7 +28,11 @@ public class LoyaltyProgram {
 		}
 		return false;
 	}
-	
+
+	public void addFlights(Flight flight) {
+		flights[numOfFlights++] = flight;
+	}
+
 	// Login member to the system
 	public boolean login() {
 		int attempts = 0;
@@ -77,4 +81,6 @@ public class LoyaltyProgram {
 //		}
 		return false;
 	}
+
+	// Will add: Flights List getter
 }

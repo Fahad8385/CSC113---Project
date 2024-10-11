@@ -1,8 +1,19 @@
 import java.util.Scanner;
 public class mainProgram {
 	public static void main(String[] args) {
-
+		// Initializing LoyaltyProgram
 		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
+		// Adding flights in the flights array
+		Flight f1 = new Flight("Riyadh", "Jeddah", 838);
+		Flight f2 = new Flight("Riyadh", "Dammam", 368);
+		Flight f3 = new Flight("Jeddah", "Dammam", 1201);
+		Flight f4 = new Flight("Tabuk", "Riyadh", 1085);
+		loyaltyProgram.addFlights(f1);
+		loyaltyProgram.addFlights(f2);
+		loyaltyProgram.addFlights(f3);
+		loyaltyProgram.addFlights(f4);
+
+        /* LoyaltyProgram = new LoyaltyProgram(); // reCreated it before creating the flights */
 		UserInterface userInterface = new UserInterface();
 		
 		boolean state = true;
