@@ -4,18 +4,26 @@ public class Flight {
     private static int flightCounter;
     private int passengerCounter;
     private Member [] passengers;
-    private String from; // "e.g" : Riyadh
-    private String to; // "e.g" : Jeddah
-    private double distance; // 954.6 KM - I look up for it in google (: // Well done, details are important ofc ;)
+    private String from;
+    private String to;
+    private double distance;
 
-    // Parametrized Constructor
+    // Parameterized Constructor
     public Flight(String from, String to, double distance) {
-        flightNum += (flightCounter+1);
+        flightNum += (flightCounter + 1);
         flightCounter++;
         this.from = from;
         this.to = to;
         this.distance = distance;
         passengers = new Member[10];
+    }
+    
+    // Copy Constructor
+    public Flight(Flight flight) {
+    	this.from = flight.from;
+    	this.to = flight.to;
+    	this.distance = flight.distance;
+    	this.flightNum = flight.flightNum;
     }
 
     // Add member to flight

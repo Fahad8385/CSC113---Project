@@ -1,54 +1,68 @@
 import java.util.Scanner;
 public class mainProgram {
 	public static void main(String[] args) {
-		// Initializing LoyaltyProgram
 		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
-		// Adding flights in the flights array
+		UserInterface userInterface = new UserInterface();
+		// Flight
 		Flight f1 = new Flight("Riyadh", "Jeddah", 838);
 		Flight f2 = new Flight("Riyadh", "Dammam", 368);
 		Flight f3 = new Flight("Jeddah", "Dammam", 1201);
 		Flight f4 = new Flight("Tabuk", "Riyadh", 1085);
-		loyaltyProgram.addFlights(f1);
-		loyaltyProgram.addFlights(f2);
-		loyaltyProgram.addFlights(f3);
-		loyaltyProgram.addFlights(f4);
-
-        /* LoyaltyProgram = new LoyaltyProgram(); // reCreated it before creating the flights */
-		UserInterface userInterface = new UserInterface();
+		Flight f5 = new Flight("Riyadh", "Cairo", 1613);
+		
+		// Array of flights
+		Flight [] flightsArr = new Flight[]{f1, f2, f3, f4, f5};
+		
+		// Adding flights to loyaltyProgram
+		for (Flight f : flightsArr) {
+			loyaltyProgram.addFlights(f);
+		}
 		
 		boolean state = true;
-		
 		while (state) {
-			String choice = userInterface.firstInterface(); // possible values for choice is ["1" || "2" || "q"]
+			String choice = userInterface.firstInterface();
 			
 			switch (choice) {
 			
 				// ===[Register]=== //
 				case "1":
-					if (userInterface.backToMainMenu()) // possible values is [true => back to main menu || false => continue]
+					if (userInterface.backToMainMenu())
 						break;
 					Member member = userInterface.createMember();
 					loyaltyProgram.addMembers(member);
 					break;
 				// ===[Login]=== //
 				case "2":
-					if (userInterface.backToMainMenu()) // possible values is [true => back to main menu || false => continue]
+					if (userInterface.backToMainMenu())
 						break;
-					boolean isExist = loyaltyProgram.login();
+					member = loyaltyProgram.login();
+					boolean isExist = false;
+					if (member != null) {
+						isExist = true;
+					}
 					if (isExist) {
-						choice = userInterface.loginInterface();
-						switch (choice) {
-							case "1":
-								System.out.println(loyaltyProgram.listFlights());
-								break;
-							case "2":
-								break;
-							case "3":
-								break;
-							case "4":
-								break;
-							case "5":
-								break;
+						boolean state2 = true;
+						while (state2) {
+							choice = userInterface.secondInterface(member.getName());
+							switch (choice) {
+								case "1":
+									if (userInterface.backToMainMenu())
+										break;
+									loyaltyProgram.bookFlight();
+									break;
+								case "2":
+									System.out.println("Cancle Flight");
+									break;
+								case "3":
+									System.out.println("View Points");
+									break;
+								case "4":
+									System.out.println("Log out");
+									break;
+								case "q":
+									state2 = false;
+									break;
+							}
 						}
 					}
 					break;

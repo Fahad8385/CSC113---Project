@@ -31,15 +31,15 @@ public class LoyaltyProgram {
 	}
 
 	public void addFlights(Flight flight) {
-		flights[numOfFlights++] = flight;
+		flights[numOfFlights++] = new Flight(flight);
 	}
 
 	// Login member to the system
-	public boolean login() {
+	public Member login() {
 		int attempts = 0;
 		while (attempts < 3) {
 			System.out.print("Enter username: ");
-			String username = scanner.next();
+			String username = scanner.next().toLowerCase();
 			System.out.print("Enter password: ");
 			String password = scanner.next();
 			
@@ -47,7 +47,7 @@ public class LoyaltyProgram {
 			for (int i = 0; i < numOfMembers; i++) {
 				if (username.equals(members[i].getUserName()) && password.equals(members[i].getPassword())) {
 					System.out.println("Member found.");
-					return true;
+					return members[i];
 				} else {
 					System.out.println("username or password is incorrect");
 					attempts++;
@@ -62,9 +62,9 @@ public class LoyaltyProgram {
 		}
 		if (attempts == 3) {			 
 			System.out.println("You reached maximum attemps");
-			return false;
+			return null;
 		}
-		return false;
+		return null;
 	}
 	
 	// Searching for members
@@ -83,14 +83,48 @@ public class LoyaltyProgram {
 		return false;
 	}
 
-	// Will add: Flights List getter
-	public String listFlights() {
-		String allFlights = "";
-		for (int i = 0; i < numOfFlights; i++)
-			allFlights +=  (i+1) +". From: " + flights[i].getFrom() + " To " + flights[i].getTo() +", Flight Number: "+ flights[i].getFlightNum() + "\n";
-		String comm = "Please enter the flight number you'd like to book: ";
-		return allFlights + comm;
+	// Print all flights details
+	public void listFlights() {
+		if (numOfFlights > 0) {
+			System.out.println(" - Avilable Flights: ");
+			for (int i = 0; i < numOfFlights; i++) {
+				System.out.println((i + 1) + " - # From: " + flights[i].getFrom() + "  " + "To: " + flights[i].getTo() + "  " + "Flight Number: " + flights[i].getFlightNum() +" ");
+			}
+		} else {
+			System.out.println("There is no flights");
+		}
 	}
-
-
+	
+	// Book Flight
+	public void bookFlight() {
+		listFlights();
+		
+//		System.out.print("Please enter your choice (R11, R12, R13, R14 or R15): ");
+		String choice;
+		boolean state = false; // it means we didn't find the flight
+		
+		do {
+			System.out.print("Please enter flight number: ");
+			choice = scanner.next().toUpperCase(); // R14
+			
+			for (int i = 0; i < numOfFlights; i++) {
+				if (choice.equals(flights[i].getFlightNum())) {
+					/*
+					 	1- Add member to flight passengers (Flight)
+						2- increase flight capacity (Flight)
+						3- add flight to member's booked flights (Member)
+						4- increase member points (Member -> level)
+						5- return to login menu (flow)
+					 */
+					System.out.println("Flight found.");
+					state = true;// it means we found the flight
+					break;
+				}
+			}
+			if (!state) {
+				System.out.println("Not found");
+			}
+			
+		} while (!state);
+	}
 }

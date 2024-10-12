@@ -54,28 +54,28 @@ public class UserInterface {
     	return member;
     }
     
-    // Logged in interface
-	public String loginInterface() {
-		System.out.println("====== [Welcome Back <member name?>!] ======");
+    // Second Interface
+	public String secondInterface(String memeberName) {
+		System.out.println("====== [Welcome Back " + memeberName +"] ======");
 		System.out.println("1. Book a flight");
 		System.out.println("2. Cancel a flight");
 		System.out.println("3. View Points");
 		System.out.println("4. Log out");
-		System.out.println("5. Quit Program");
+		System.out.println("Q. Quit Program");
 
-		System.out.print("Please enter your choice: ");
+		System.out.print("Please enter your choice (1, 2, 3, 4 or Q): ");
 		String choice = scanner.next().toLowerCase();
 
-		while (!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("5"))) {
+		while (!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("q"))) {
 			System.out.println("Oops.. You entered incorrect value.");
 
-			System.out.print("Please enter your choice: ");
+			System.out.print("Please enter your choice (1, 2, 3, 4 or Q): ");
 			choice = scanner.next().toLowerCase();
 		}
 		return choice;
 	}
 
 	// Booking a flight interface
-	public String bookInterface() {
-	}
+	// public String bookInterface() {
+	// }
 }
