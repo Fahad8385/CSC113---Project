@@ -74,4 +74,8 @@ public class UserInterface {
 		}
 		return choice;
 	}
+
+	// Booking a flight interface
+	public String bookInterface() {
+	}
 }

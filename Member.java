@@ -4,6 +4,7 @@ public abstract class Member {
     protected String userName;
     protected String password;
     protected int points;
+    protected Flight[] bookedFlights = new Flight[3];
 
     // Parameterized Constructor
     public Member(String name, String username, String password) {

@@ -11,6 +11,7 @@ public class LoyaltyProgram {
 	// Parameterized Constructor
 	public LoyaltyProgram() {
 		members = new Member[5];
+		flights = new Flight[5];
 	}
 	
 	// Adding members to our system
@@ -83,4 +84,13 @@ public class LoyaltyProgram {
 	}
 
 	// Will add: Flights List getter
+	public String listFlights() {
+		String allFlights = "";
+		for (int i = 0; i < numOfFlights; i++)
+			allFlights +=  (i+1) +". From: " + flights[i].getFrom() + " To " + flights[i].getTo() +", Flight Number: "+ flights[i].getFlightNum() + "\n";
+		String comm = "Please enter the flight number you'd like to book: ";
+		return allFlights + comm;
+	}
+
+
 }

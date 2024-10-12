@@ -39,6 +39,7 @@ public class mainProgram {
 						choice = userInterface.loginInterface();
 						switch (choice) {
 							case "1":
+								System.out.println(loyaltyProgram.listFlights());
 								break;
 							case "2":
 								break;
