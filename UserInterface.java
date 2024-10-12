@@ -54,7 +54,7 @@ public class UserInterface {
     	return member;
     }
     
-    // Logged in interface
+    // Login in interface
 	public String loginInterface() {
 		System.out.println("====== [Welcome Back <member name?>!] ======");
 		System.out.println("1. Book a flight");

@@ -35,7 +35,7 @@ public class LoyaltyProgram {
 	}
 
 	// Login member to the system
-	public boolean login() {
+	public Member login() {
 		int attempts = 0;
 		while (attempts < 3) {
 			System.out.print("Enter username: ");
@@ -47,7 +47,7 @@ public class LoyaltyProgram {
 			for (int i = 0; i < numOfMembers; i++) {
 				if (username.equals(members[i].getUserName()) && password.equals(members[i].getPassword())) {
 					System.out.println("Member found.");
-					return true;
+					return members[i];
 				} else {
 					System.out.println("username or password is incorrect");
 					attempts++;
@@ -62,9 +62,9 @@ public class LoyaltyProgram {
 		}
 		if (attempts == 3) {			 
 			System.out.println("You reached maximum attemps");
-			return false;
+			return null;
 		}
-		return false;
+		return null;
 	}
 	
 	// Searching for members
@@ -83,13 +83,39 @@ public class LoyaltyProgram {
 		return false;
 	}
 
-	// Will add: Flights List getter
-	public String listFlights() {
+	// List flight
+	public void listFlights() {
 		String allFlights = "";
 		for (int i = 0; i < numOfFlights; i++)
-			allFlights +=  (i+1) +". From: " + flights[i].getFrom() + " To " + flights[i].getTo() +", Flight Number: "+ flights[i].getFlightNum() + "\n";
-		String comm = "Please enter the flight number you'd like to book: ";
-		return allFlights + comm;
+			System.out.println((i+1) + ". From: " + flights[i].getFrom() + " To " + flights[i].getTo() +", Flight Number: "+ flights[i].getFlightNum());
 	}
 
+	public void bookFlight(Member member) {
+        listFlights();
+		String choice;
+        boolean found = false;
+
+        do {
+			System.out.print("Please enter the flight number you'd like to book: ");
+			choice = scanner.next();
+            found = false;
+
+            for (int i = 0; i < numOfFlights; i++) {
+                if (choice.equals(flights[i].getFlightNum())) {
+                    // Add member to passengers
+                    // Add flight to member flights
+                    // Increase member points
+                    // Increase flight capacity
+                    found = true;
+                    System.out.println("Flight booked successfully!");
+                    break;
+                }
+            }
+			// found will be t or f
+            if (!found) {
+                System.out.println("Invalid flight number. Please try again.");
+            }
+
+        } while (!found);
+    }
 }
