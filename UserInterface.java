@@ -61,7 +61,7 @@ public class UserInterface {
 		System.out.println("2. Cancel a flight");
 		System.out.println("3. View Points");
 		System.out.println("4. Log out");
-		System.out.println("5. Quit Program");
+		System.out.println("Q. Quit Program");
 
 		System.out.print("Please enter your choice: ");
 		String choice = scanner.next().toLowerCase();

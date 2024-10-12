@@ -18,6 +18,14 @@ public class Flight {
         passengers = new Member[10];
     }
 
+    // Copy Constructor
+    public Flight(Flight flight) {
+        this.from = flight.getFrom();
+        this.to = flight.getTo();
+        this.distance = flight.getDistance();
+        this.flightNum = flight.getFlightNum();
+    }
+
     // Add member to flight
     public boolean addMember(Member member) {
         for(int i = 0; i < passengerCounter; i++)
@@ -43,5 +51,8 @@ public class Flight {
 
     public String getTo() {
         return to;
+    }
+    public double getDistance() {
+        return distance;
     }
 }

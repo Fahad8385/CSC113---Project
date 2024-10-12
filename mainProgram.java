@@ -9,11 +9,10 @@ public class mainProgram {
         Flight f2 = new Flight("Riyadh", "Dammam", 368);
         Flight f3 = new Flight("Jeddah", "Dammam", 1201);
         Flight f4 = new Flight("Tabuk", "Riyadh", 1085);
-        loyaltyProgram.addFlights(f1);
-        loyaltyProgram.addFlights(f2);
-        loyaltyProgram.addFlights(f3);
-        loyaltyProgram.addFlights(f4);
-
+        Flight[] flightsArr = new Flight[]{f1, f2, f3, f4};
+        for (Flight flight: flightsArr){
+            loyaltyProgram.addFlights(flight);
+        }
         /* LoyaltyProgram = new LoyaltyProgram(); // reCreated it before creating the flights */
         UserInterface userInterface = new UserInterface();
 
@@ -57,7 +56,7 @@ public class mainProgram {
                                 case "4":
                                     state2 = false;
                                     break;
-                                case "5":
+                                case "q":
                                     break;
                             }
                         }
@@ -66,8 +65,6 @@ public class mainProgram {
 
                 // ===[Quit]=== //
                 case "q":
-                    System.out.println("Quit");
-                    state1 = false;
                     break;
             }
         }

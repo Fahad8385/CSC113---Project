@@ -31,7 +31,7 @@ public class LoyaltyProgram {
 	}
 
 	public void addFlights(Flight flight) {
-		flights[numOfFlights++] = flight;
+		flights[numOfFlights++] = new Flight(flight);
 	}
 
 	// Login member to the system
@@ -96,7 +96,7 @@ public class LoyaltyProgram {
         boolean found = false;
 
         do {
-			System.out.print("Please enter the flight number you'd like to book: ");
+			System.out.print("Enter the flight number you'd like to book: ");
 			choice = scanner.next();
             found = false;
 
