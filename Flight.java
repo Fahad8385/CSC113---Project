@@ -10,7 +10,7 @@ public class Flight {
 
     // Parametrized Constructor
     public Flight(String from, String to, double distance) {
-        flightNum += (flightCounter+1);
+        flightNum += (flightCounter++);
         flightCounter++;
         this.from = from;
         this.to = to;

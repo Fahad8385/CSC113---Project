@@ -92,5 +92,4 @@ public class LoyaltyProgram {
 		return allFlights + comm;
 	}
 
-
 }
