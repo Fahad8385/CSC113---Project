@@ -16,12 +16,12 @@ public class LoyaltyProgram {
 
     // Adding members to our system
     public boolean addMembers(Member member) {
-        if (numOfMembers < members.length && !searchForMemeber(member)) {
+        if (numOfMembers < members.length && !searchForMember(member)) {
             members[numOfMembers++] = new SilverMember(member);
             System.out.println("Member has been created successfully");
             return true;
         }
-        if (searchForMemeber(member)) {
+        if (searchForMember(member)) {
             System.out.println("Member already exists");
         }
         if (numOfMembers == members.length) {
@@ -72,7 +72,7 @@ public class LoyaltyProgram {
     }
 
     // Searching for members
-    public boolean searchForMemeber(Member member) {
+    public boolean searchForMember(Member member) {
         for (int i = 0; i < numOfMembers; i++) {
 //			if (members[i].getUserName().equals(member.getUserName()) && members[i].getPassword().equals(member.getPassword()));
             if (members[i].getUserName().equals(member.getUserName())) {
@@ -94,89 +94,52 @@ public class LoyaltyProgram {
             System.out.println((i + 1) + ". From: " + flights[i].getFrom() + " To " + flights[i].getTo() + ", Flight Number: " + flights[i].getFlightNum());
     }
 
-//    public void bookFlight(Member member) {
-//        String choice;
-//        boolean found = false;
-//        // Check if the member can book flights (full or not)
-//        if (member.getFlightsCounter() >= 3) {
-//            System.out.println("Sorry... You have reached maximum of booked flights");
-//            found = true;
-//        }
-//
-//        do {
-//            listFlights();
-//            System.out.print("Enter the flight number you'd like to book: ");
-//            choice = scanner.next();
-//            found = false;
-//
-//            for (int i = 0; i < numOfFlights; i++) {
-//                if (choice.equals(flights[i].getFlightNum())) {
-//                    // Adding the member to the flight and Add Flight to member's booked flights
-//                    if (flights[i].addMember(member)) {
-//                        member.addFlight(flights[i]);
-//                        found = true;
-//                        System.out.println("Flight booked successfully!");
-//                    } else {
-//                        found = true;
-//                        System.out.println("Apologies, this flight is fully booked.");
-//                        break;
-//                    }
-//
-//                    // Increase flight capacity (No need, already in addMember)
-//                    // Increase member points (After implementing Membership levels)
-//
-//                    break;
-//                }
-//            }
-//
-//            if (!found) {
-//                System.out.println("Invalid flight number. Please try again.");
-//            }
-//
-//        } while (!found);
-//    }
-public void bookFlight(Member member) {
-    String choice;
-    boolean found = false;
-    // Check if the member can book flights (full or not)
-    if (member.getFlightsCounter() >= 3) {
-        System.out.println("Sorry... You have reached maximum of booked flights");
-        found = true;
-    }
 
-    while (!found) {
-        listFlights();
-        System.out.print("Enter the flight number you'd like to book: ");
-        choice = scanner.next();
-        found = false;
+    public void bookFlight(Member member) {
+        String choice;
+        boolean found = false;
+        // Check if the member can book flights (full or not)
+        if (member.getFlightsCounter() >= 3) {
+            System.out.println("Sorry... You have reached maximum of booked flights");
+            found = true;
+        }
 
-        for (int i = 0; i < numOfFlights; i++) {
-            if (choice.equals(flights[i].getFlightNum())) {
-                // Adding the member to the flight and Add Flight to member's booked flights
-                if (flights[i].addMember(member)) {
-                    member.addFlight(flights[i]);
-                    found = true;
-                    System.out.println("Flight booked successfully!");
-                } else {
-                    found = true;
-                    System.out.println("Apologies, this flight is fully booked.");
+        while (!found) {
+            listFlights();
+            System.out.print("Enter the flight number you'd like to book: ");
+            choice = scanner.next();
+
+            // Note: we need to handle if the member book a flight twice // update: Done
+            for (int i = 0; i < numOfFlights; i++) {
+                if (choice.equals(flights[i].getFlightNum())) {
+
+                    if (flights[i].hasMember(member)) { // Check if the member have booked the flight before
+                        found = true;
+                        System.out.println("You have already booked this flight!");
+                    } else if (flights[i].addMember(member)) { // Adding the member to the flight and Add Flight to member's booked flights
+                        member.addFlight(flights[i]);
+                        member.addPoints(flights[i].getDistance());
+                        found = true;
+                        System.out.println("Flight booked successfully!");
+                    } else {
+                        found = true;
+                        System.out.println("Apologies, this flight is fully booked.");
+                        break;
+                    }
+
                     break;
                 }
-
-                // Increase flight capacity (No need, already in addMember)
-                // Increase member points (After implementing Membership levels)
-                /*
-                1- member.addPoints(flights[i](getDistance());
-                 */
-
-                break;
             }
-        }
 
-        if (!found) {
-            System.out.println("Invalid flight number. Please try again.");
-        }
+            if (!found) {
+                System.out.println("Invalid flight number. Please try again.");
+            }
 
+        }
     }
-}
+
+    // View points
+    public void viewPoints(Member member) {
+        System.out.println("You have: " + member.getPoints() + " loyalty points");
+    }
 }
