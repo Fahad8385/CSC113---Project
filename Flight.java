@@ -24,19 +24,29 @@ public class Flight {
     	this.to = flight.to;
     	this.distance = flight.distance;
     	this.flightNum = flight.flightNum;
+    	this.passengers = flight.passengers;
+    	this.passengerCounter = flight.passengerCounter;
+    	
     }
 
     // Add member to flight
     public boolean addMember(Member member) {
-        for(int i = 0; i < passengerCounter; i++)
-            if (passengers[i].equals(member))
-                return false;
-
-        if(passengerCounter >= passengers.length)
-            return false;
-        else
-            passengers[passengerCounter] = member;
-        passengerCounter++;
+    	// Checking if member is already booked the flight
+        for (int i = 0; i < passengerCounter; i++) {
+        	if (passengers[i].getUserName().equals(member.getUserName())) {
+            	System.out.println("The member is already booked this flight");
+            	return false;
+            }
+        }
+            	
+        // Check if the flight is full
+        if (passengerCounter == passengers.length) {
+        	System.out.println("Apologies, this flight is fully booked.");
+        	return false;
+        }
+        
+    	// Add the Member to passengers
+        passengers[passengerCounter++] = member;
         return true;
     }
 

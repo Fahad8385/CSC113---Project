@@ -18,8 +18,8 @@ public class mainProgram {
 			loyaltyProgram.addFlights(f);
 		}
 		
-		boolean state = true;
-		while (state) {
+		boolean state1 = true;
+		while (state1) {
 			String choice = userInterface.firstInterface();
 			
 			switch (choice) {
@@ -43,12 +43,12 @@ public class mainProgram {
 					if (isExist) {
 						boolean state2 = true;
 						while (state2) {
-							choice = userInterface.secondInterface(member.getName());
+							choice = userInterface.secondInterface(member);
 							switch (choice) {
 								case "1":
 									if (userInterface.backToMainMenu())
 										break;
-									loyaltyProgram.bookFlight();
+									loyaltyProgram.bookFlight(member);
 									break;
 								case "2":
 									System.out.println("Cancle Flight");
@@ -58,8 +58,11 @@ public class mainProgram {
 									break;
 								case "4":
 									System.out.println("Log out");
+									state2 = false;
 									break;
 								case "q":
+									System.out.println("Quit Program");
+									state1 = false;
 									state2 = false;
 									break;
 							}
@@ -70,9 +73,10 @@ public class mainProgram {
 				// ===[Quit]=== //
 				case "q":
 					System.out.println("Quit");
-					state = false;
+					state1 = false;
 					break;
 			}
 		}
+		userInterface.exitMessage();
 	}
 }

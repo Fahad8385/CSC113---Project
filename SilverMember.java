@@ -1,13 +1,13 @@
 
 public class SilverMember extends Member{
 
+	// No-Arguments Constructor
+		public SilverMember() {};
+	
 	// Parameterized Constructor
 	public SilverMember(String name, String username, String password) {
 		super(name, username, password);
 	}
-	
-	// No-Arguments Constructor
-	public SilverMember() {};
 	
 	// Copy Constructor
 	public SilverMember (Member member) {
@@ -15,12 +15,12 @@ public class SilverMember extends Member{
 		this.userName = member.userName;
 		this.password = member.password;
 		this.points = member.points;
+		this.bookedFlights = member.bookedFlights;
+		this.flightsCounter = member.flightsCounter;
 	}
-//	@Override
-//	public Member createMemeber(String name, String username, String password) {
-//		
-//	}
+	
 
+	// Methods
 	@Override
 	public void setPoints(int distance) {
 		
@@ -29,6 +29,11 @@ public class SilverMember extends Member{
 	@Override
 	public void substractPoints(double distance) {
 		
+	}
+	
+	@Override
+	public String getMemberShipLevel() {
+		return "Silver";
 	}
 	
 }

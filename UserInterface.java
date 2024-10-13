@@ -51,12 +51,14 @@ public class UserInterface {
     	String password = scanner.next();
 		String name = fname + " " + lname;
     	Member member = new SilverMember(name, username, password);
+//    	Member member = new GoldMember(name, username, password);
+//    	Member member = new PlatinumMember(name, username, password);
     	return member;
     }
     
     // Second Interface
-	public String secondInterface(String memeberName) {
-		System.out.println("====== [Welcome Back " + memeberName +"] ======");
+	public String secondInterface(Member member) {
+		System.out.println("====== [Welcome Back " + member.getName() + " (" + member.getMemberShipLevel() + ")] ======");
 		System.out.println("1. Book a flight");
 		System.out.println("2. Cancel a flight");
 		System.out.println("3. View Points");
@@ -75,7 +77,9 @@ public class UserInterface {
 		return choice;
 	}
 
-	// Booking a flight interface
-	// public String bookInterface() {
-	// }
+	public void exitMessage() {
+		System.out.println("=".repeat(13));
+		System.out.println("See you soon!");
+		System.out.println("=".repeat(13));
+	}
 }

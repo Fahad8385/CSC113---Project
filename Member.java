@@ -4,24 +4,50 @@ public abstract class Member {
     protected String userName;
     protected String password;
     protected int points;
-    protected Flight[] bookedFlights = new Flight[3];
+    protected Flight[] bookedFlights;
+    protected int flightsCounter;
 
     // Parameterized Constructor
     public Member(String name, String username, String password) {
     	this.name = name;
     	this.userName = username;
     	this.password = password;
+    	bookedFlights = new Flight[3];
     }
     
     // No-Arguments Constructor
     public Member() {}
 
-    // Abstract Methods
-//    public abstract Member createMemeber(String name, String username, String password);
-    
+    // Abstract Methods    
     public abstract void setPoints(int distance);
-    
     public abstract void substractPoints(double distance);
+    public abstract String getMemberShipLevel();
+    
+    // Methods
+    public boolean addFlight(Flight flight) {
+    	// Check if the flight is already exist;
+    	for (int i = 0; i < flightsCounter; i++) {
+    		if (flight.getFlightNum().equals(bookedFlights[i].getFlightNum())) { 
+    			System.out.println("The flight is already booked");
+    			return false;
+    		}
+    	}
+    	
+    	// Checking if the bookedFlights is full
+    	if (flightsCounter == bookedFlights.length) {
+    		System.out.println("Your reached max of booking filght which is 3");
+    		return false;
+    	}
+    	
+    	// Add the flight to bookedFlights
+    	bookedFlights[flightsCounter++] = flight; // Aggregation 
+    	return true;
+    }
+    
+    
+    public int getFlightsCounter() {
+    	return flightsCounter;
+    }
     
     // Setters & Getters
     public void setName(String name) {
