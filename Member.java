@@ -1,10 +1,12 @@
+import javax.swing.*;
+
 public abstract class Member {
     // Attributes
     protected String name;
     protected String userName;
     protected String password;
     protected int points;
-    protected Flight[] bookedFlights = new Flight[3];
+    protected Flight[] bookedFlights;
     protected int flightsCounter;;
 
     // Parameterized Constructor
@@ -12,6 +14,7 @@ public abstract class Member {
     	this.name = name;
     	this.userName = username;
     	this.password = password;
+        bookedFlights = new Flight[3];
     }
     
     // No-Arguments Constructor
@@ -56,12 +59,13 @@ public abstract class Member {
     public int getFlightsCounter() { return flightsCounter; };
 
     public boolean addFlight(Flight flight) {
-        for(int i = 0; i < flightsCounter; i++)
-            if (bookedFlights[i].equals(flight))
-                return false;
-
-        if(flightsCounter >= bookedFlights.length)
-            return false;
+        // No need for this part
+//        for(int i = 0; i < flightsCounter; i++)
+//            if (bookedFlights[i].equals(flight))
+//                return false;
+//
+//        if(flightsCounter >= bookedFlights.length)
+//            return false;
 
         bookedFlights[flightsCounter] = flight;
         flightsCounter++;

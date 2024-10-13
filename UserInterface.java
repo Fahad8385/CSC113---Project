@@ -66,7 +66,7 @@ public class UserInterface {
 		System.out.print("Please enter your choice: ");
 		String choice = scanner.next().toLowerCase();
 
-		while (!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("5"))) {
+		while (!(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4") || choice.equals("q"))) {
 			System.out.println("Oops.. You entered incorrect value.");
 
 			System.out.print("Please enter your choice: ");

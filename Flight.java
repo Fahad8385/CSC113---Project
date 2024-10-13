@@ -26,7 +26,6 @@ public class Flight {
         this.flightNum = flight.getFlightNum();
         this.passengers = flight.passengers;
         this.passengerCounter = flight.passengerCounter;
-
     }
 
     // Add member to flight

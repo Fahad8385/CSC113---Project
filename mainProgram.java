@@ -19,12 +19,6 @@ public class mainProgram {
         boolean state1 = true;
 
         while (state1) {
-            // Suggestion for Quit the program
-//            if (choice.equals("q")) {
-//                System.out.println("Program Quit...");
-//                break;
-//            }
-
             choice = userInterface.firstInterface(); // possible values for choice is ["1" || "2" || "q"]
             switch (choice) {
 
@@ -64,6 +58,8 @@ public class mainProgram {
                                     break;
                                 case "q":
                                     // Quit the program
+                                    state2 = false;
+                                    state1 = false;
                                     break;
                             }
                         }
@@ -72,6 +68,7 @@ public class mainProgram {
 
                 // ===[Quit]=== //
                 case "q":
+                    state1 = false;
                     break;
             }
         }
