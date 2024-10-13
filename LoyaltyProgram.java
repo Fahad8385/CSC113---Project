@@ -16,14 +16,14 @@ public class LoyaltyProgram {
 	
 	// Adding members to our system
 	public boolean addMembers(Member member) {
-		if (numOfMembers < members.length && !searchForMemeber(member)) {
-			members[numOfMembers++] = new SilverMember(member);
-//			members[numOfMembers++] = new GoldMember(member);
-//			members[numOfMembers++] = new PlatinumMember(member);
+		if (numOfMembers < members.length && !searchForMember(member)) {
+			// members[numOfMembers++] = new SilverMember(member);
+			// members[numOfMembers++] = new GoldMember(member);
+			members[numOfMembers++] = new PlatinumMember(member);
 	    	System.out.println("Member has been created successfully");
 			return true;
 		}
-		if (searchForMemeber(member)) {
+		if (searchForMember(member)) {
 			System.out.println("Member already exists");
 		}
 		if (numOfMembers == members.length) {
@@ -68,18 +68,14 @@ public class LoyaltyProgram {
 	}
 	
 	// Searching for members
-	public boolean searchForMemeber(Member member) {
+	public boolean searchForMember(Member member) {
 		for (int i = 0; i < numOfMembers; i++) {
-//			if (members[i].getUserName().equals(member.getUserName()) && members[i].getPassword().equals(member.getPassword()));
 			if (members[i].getUserName().equals(member.getUserName())) {
 				return true;
 			} else {
 				return false;
 			}
 		}
-//		if (numOfMembers == 0) {
-//			System.out.println("There is no members");
-//		}
 		return false;
 	}
 
@@ -108,7 +104,7 @@ public class LoyaltyProgram {
 		boolean state = false;
 		
 		do {
-			// Printing flights details
+			// Printing Flights Details
 			listFlights();
 			
 			System.out.print("Enter the flight number you'd like to book: ");
@@ -127,7 +123,7 @@ public class LoyaltyProgram {
 					}
 					
 					// 2. Add points to the member
-//					member.setPoints();
+					member.addPoints(flights[i].getDistance());
 				}
 			}
 			if (!state) {
@@ -135,5 +131,22 @@ public class LoyaltyProgram {
 			}
 			
 		} while (!state);
+	}
+
+	// View Member Details Method
+	public void viewMemberDetails(Member member) {
+		String name = member.getName();
+		String username = member.getUserName();
+		String password = member.getPassword();
+		int points = member.getPoints();
+		System.out.println("==========================[Member Information]==========================");
+		System.out.println("Name: " + name);
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+		System.out.println("Loyalty Points: " + points);
+		System.out.println("");
+		System.out.println(" - Booked Flights");
+		member.printBookedFlights();
+		System.out.println("========================================================================");
 	}
 }

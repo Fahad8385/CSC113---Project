@@ -2,20 +2,20 @@ public class Flight {
     // Attributes
     private String flightNum = "R1";
     private static int flightCounter;
-    private int passengerCounter;
     private Member [] passengers;
+    private int passengerCounter;
     private String from;
     private String to;
-    private double distance;
+    private int distance;
 
     // Parameterized Constructor
-    public Flight(String from, String to, double distance) {
+    public Flight(String from, String to, int distance) {
         flightNum += (flightCounter + 1);
         flightCounter++;
         this.from = from;
         this.to = to;
         this.distance = distance;
-        passengers = new Member[10];
+        passengers = new Member[15];
     }
     
     // Copy Constructor
@@ -32,11 +32,9 @@ public class Flight {
     // Add member to flight
     public boolean addMember(Member member) {
     	// Checking if member is already booked the flight
-        for (int i = 0; i < passengerCounter; i++) {
-        	if (passengers[i].getUserName().equals(member.getUserName())) {
-            	System.out.println("The member is already booked this flight");
-            	return false;
-            }
+        if (hasMember(member)) {
+            System.out.println("The member is already booked this flight");
+            return false;
         }
             	
         // Check if the flight is full
@@ -50,6 +48,15 @@ public class Flight {
         return true;
     }
 
+    public boolean hasMember(Member member) {
+        for (int i = 0; i < passengerCounter; i++) {
+            if (passengers[i].getUserName().equals(member.getUserName())) {
+                return true; // Member found in this flight
+            }
+        }
+        return false;
+    }
+
     // Getters
     public String getFlightNum() {
         return flightNum;
@@ -61,5 +68,8 @@ public class Flight {
 
     public String getTo() {
         return to;
+    }
+    public int getDistance() {
+        return distance;
     }
 }

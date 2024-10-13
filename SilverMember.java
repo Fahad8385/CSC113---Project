@@ -1,5 +1,5 @@
 
-public class SilverMember extends Member{
+public class SilverMember extends Member {
 
 	// No-Arguments Constructor
 		public SilverMember() {};
@@ -22,8 +22,8 @@ public class SilverMember extends Member{
 
 	// Methods
 	@Override
-	public void setPoints(int distance) {
-		
+	public void addPoints(int distance) {
+		points += distance * 0.5;
 	}
 
 	@Override

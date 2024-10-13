@@ -50,9 +50,9 @@ public class UserInterface {
     	System.out.print("password: ");
     	String password = scanner.next();
 		String name = fname + " " + lname;
-    	Member member = new SilverMember(name, username, password);
-//    	Member member = new GoldMember(name, username, password);
-//    	Member member = new PlatinumMember(name, username, password);
+    	// Member member = new SilverMember(name, username, password);
+   		// Member member = new GoldMember(name, username, password);
+		Member member = new PlatinumMember(name, username, password);
     	return member;
     }
     
@@ -61,7 +61,7 @@ public class UserInterface {
 		System.out.println("====== [Welcome Back " + member.getName() + " (" + member.getMemberShipLevel() + ")] ======");
 		System.out.println("1. Book a flight");
 		System.out.println("2. Cancel a flight");
-		System.out.println("3. View Points");
+		System.out.println("3. View Member Information");
 		System.out.println("4. Log out");
 		System.out.println("Q. Quit Program");
 

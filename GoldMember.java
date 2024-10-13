@@ -29,8 +29,8 @@ public class GoldMember extends SilverMember {
 	
 	// Methods
 	@Override
-	public void setPoints(int distance) {
-		
+	public void addPoints(int distance) {
+		points += distance * 1;
 	}
 
 	@Override

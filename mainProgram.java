@@ -4,11 +4,11 @@ public class mainProgram {
 		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
 		UserInterface userInterface = new UserInterface();
 		// Flight
-		Flight f1 = new Flight("Riyadh", "Jeddah", 838);
-		Flight f2 = new Flight("Riyadh", "Dammam", 368);
+		Flight f1 = new Flight("Riyadh", "Jeddah ", 838);
+		Flight f2 = new Flight("Riyadh", "Dammam ", 368);
 		Flight f3 = new Flight("Jeddah", "Dammam", 1201);
-		Flight f4 = new Flight("Tabuk", "Riyadh", 1085);
-		Flight f5 = new Flight("Riyadh", "Cairo", 1613);
+		Flight f4 = new Flight("Tabuk ", "Riyadh", 1085);
+		Flight f5 = new Flight("Riyadh", "Cairo ", 1613);
 		
 		// Array of flights
 		Flight [] flightsArr = new Flight[]{f1, f2, f3, f4, f5};
@@ -54,7 +54,7 @@ public class mainProgram {
 									System.out.println("Cancle Flight");
 									break;
 								case "3":
-									System.out.println("View Points");
+									loyaltyProgram.viewMemberDetails(member);
 									break;
 								case "4":
 									System.out.println("Log out");
