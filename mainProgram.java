@@ -10,17 +10,22 @@ public class mainProgram {
         Flight f3 = new Flight("Jeddah", "Dammam", 1201);
         Flight f4 = new Flight("Tabuk", "Riyadh", 1085);
         Flight[] flightsArr = new Flight[]{f1, f2, f3, f4};
-        for (Flight flight: flightsArr){
+        for (Flight flight : flightsArr) {
             loyaltyProgram.addFlights(flight);
         }
         /* LoyaltyProgram = new LoyaltyProgram(); // reCreated it before creating the flights */
         UserInterface userInterface = new UserInterface();
-
+        String choice;
         boolean state1 = true;
 
         while (state1) {
-            String choice = userInterface.firstInterface(); // possible values for choice is ["1" || "2" || "q"]
+            // Suggestion for Quit the program
+//            if (choice.equals("q")) {
+//                System.out.println("Program Quit...");
+//                break;
+//            }
 
+            choice = userInterface.firstInterface(); // possible values for choice is ["1" || "2" || "q"]
             switch (choice) {
 
                 // ===[Register]=== //
@@ -54,9 +59,11 @@ public class mainProgram {
                                 case "3":
                                     break;
                                 case "4":
+                                    // Logging out --> going back to main menu
                                     state2 = false;
                                     break;
                                 case "q":
+                                    // Quit the program
                                     break;
                             }
                         }

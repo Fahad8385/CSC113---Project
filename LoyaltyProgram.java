@@ -2,18 +2,18 @@ import java.util.Scanner;
 
 public class LoyaltyProgram {
 	// Attributes
-	private Scanner scanner = new Scanner(System.in);	
+	private Scanner scanner = new Scanner(System.in);
 	private Member [] members; // We assume that the system can take max 5 members
 	private Flight [] flights;
 	private int numOfMembers;
 	private static int numOfFlights;
-	
+
 	// Parameterized Constructor
 	public LoyaltyProgram() {
 		members = new Member[5];
 		flights = new Flight[5];
 	}
-	
+
 	// Adding members to our system
 	public boolean addMembers(Member member) {
 		if (numOfMembers < members.length && !searchForMemeber(member)) {
@@ -42,31 +42,30 @@ public class LoyaltyProgram {
 			String username = scanner.next();
 			System.out.print("Enter password: ");
 			String password = scanner.next();
-			
-			// Checking if the input is valid
+
+			// Checking if the input is valid // Need to be Edited // update, fixed the major issue, some part left
 			for (int i = 0; i < numOfMembers; i++) {
 				if (username.equals(members[i].getUserName()) && password.equals(members[i].getPassword())) {
 					System.out.println("Member found.");
 					return members[i];
-				} else {
-					System.out.println("username or password is incorrect");
-					attempts++;
-					System.out.println("Left Attempts: " + (3 - attempts));
-					break;
 				}
+                // this part needs to be fixed
+                System.out.println("username or password is incorrect");
+                attempts++;
+                System.out.println("Left Attempts: " + (3 - attempts));
 			}
 			if (numOfMembers == 0) {
 				System.out.println("There is no members");
 				break;
 			}
 		}
-		if (attempts == 3) {			 
+		if (attempts == 3) {
 			System.out.println("You reached maximum attemps");
 			return null;
 		}
 		return null;
 	}
-	
+
 	// Searching for members
 	public boolean searchForMemeber(Member member) {
 		for (int i = 0; i < numOfMembers; i++) {
@@ -91,9 +90,15 @@ public class LoyaltyProgram {
 	}
 
 	public void bookFlight(Member member) {
-        listFlights();
 		String choice;
-        boolean found = false;
+		boolean found = false;
+		// Check if the member can book flights (full or not)
+		if (member.getFlightsCounter() >= 3){
+			System.out.println("Sorry... You have reached maximum of booked flights");
+			found = true;
+		}
+
+        listFlights();
 
         do {
 			System.out.print("Enter the flight number you'd like to book: ");
@@ -102,16 +107,24 @@ public class LoyaltyProgram {
 
             for (int i = 0; i < numOfFlights; i++) {
                 if (choice.equals(flights[i].getFlightNum())) {
-                    // Add member to passengers
-                    // Add flight to member flights
-                    // Increase member points
-                    // Increase flight capacity
-                    found = true;
-                    System.out.println("Flight booked successfully!");
+					// Adding the member to the flight and Add Flight to member's booked flights
+                    if (flights[i].addMember(member)) {
+                        member.bookedFlights[member.getFlightsCounter()] = flights[i];
+						found = true;
+						System.out.println("Flight booked successfully!");
+					} else {
+						found = true;
+						System.out.println("Apologies, this flight is fully booked.");
+                        break;
+					}
+
+                    // Increase flight capacity (No need, already in addMember)
+                    // Increase member points (After implementing Membership levels)
+
                     break;
                 }
             }
-			// found will be t or f
+
             if (!found) {
                 System.out.println("Invalid flight number. Please try again.");
             }

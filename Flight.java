@@ -15,7 +15,7 @@ public class Flight {
         this.from = from;
         this.to = to;
         this.distance = distance;
-        passengers = new Member[10];
+        passengers = new Member[2];
     }
 
     // Copy Constructor
@@ -24,6 +24,9 @@ public class Flight {
         this.to = flight.getTo();
         this.distance = flight.getDistance();
         this.flightNum = flight.getFlightNum();
+        this.passengers = flight.passengers;
+        this.passengerCounter = flight.passengerCounter;
+
     }
 
     // Add member to flight
@@ -34,8 +37,8 @@ public class Flight {
 
         if(passengerCounter >= passengers.length)
             return false;
-        else
-            passengers[passengerCounter] = member;
+
+        passengers[passengerCounter] = member;
         passengerCounter++;
         return true;
     }
@@ -49,10 +52,7 @@ public class Flight {
         return from;
     }
 
-    public String getTo() {
-        return to;
-    }
-    public double getDistance() {
-        return distance;
-    }
+    public String getTo() { return to; }
+    public double getDistance() { return distance; }
+
 }

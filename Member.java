@@ -5,6 +5,7 @@ public abstract class Member {
     protected String password;
     protected int points;
     protected Flight[] bookedFlights = new Flight[3];
+    protected int flightsCounter;;
 
     // Parameterized Constructor
     public Member(String name, String username, String password) {
@@ -50,5 +51,20 @@ public abstract class Member {
 
     public int getPoints() {
         return points;
+    }
+
+    public int getFlightsCounter() { return flightsCounter; };
+
+    public boolean addFlight(Flight flight) {
+        for(int i = 0; i < flightsCounter; i++)
+            if (bookedFlights[i].equals(flight))
+                return false;
+
+        if(flightsCounter >= bookedFlights.length)
+            return false;
+
+        bookedFlights[flightsCounter] = flight;
+        flightsCounter++;
+        return true;
     }
 }
