@@ -34,8 +34,8 @@ public class PlatinumMember extends SilverMember {
 	}
 
 	@Override
-	public void substractPoints(double distance) {
-		
+	public void substractPoints(int distance) {
+		points -= distance * 1;
 	}
 	
 	@Override

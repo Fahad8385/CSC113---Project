@@ -24,11 +24,12 @@ public class SilverMember extends Member {
 	@Override
 	public void addPoints(int distance) {
 		points += distance * 0.5;
+		// LoyaltyProgram.upgrageMemberShip(this);
 	}
 
 	@Override
-	public void substractPoints(double distance) {
-		
+	public void substractPoints(int distance) {
+		points -= distance * 0.5;
 	}
 	
 	@Override

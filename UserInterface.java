@@ -50,9 +50,9 @@ public class UserInterface {
     	System.out.print("password: ");
     	String password = scanner.next();
 		String name = fname + " " + lname;
-    	// Member member = new SilverMember(name, username, password);
+    	Member member = new SilverMember(name, username, password);
    		// Member member = new GoldMember(name, username, password);
-		Member member = new PlatinumMember(name, username, password);
+		// Member member = new PlatinumMember(name, username, password);
     	return member;
     }
     

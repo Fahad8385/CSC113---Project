@@ -12,7 +12,7 @@ public abstract class Member {
     	this.name = name;
     	this.userName = username;
     	this.password = password;
-    	bookedFlights = new Flight[5];
+    	bookedFlights = new Flight[50];
     }
     
     // No-Arguments Constructor
@@ -20,7 +20,7 @@ public abstract class Member {
 
     // Abstract Methods    
     public abstract void addPoints(int distance);
-    public abstract void substractPoints(double distance);
+    public abstract void substractPoints(int distance);
     public abstract String getMemberShipLevel();
     
     // Methods
@@ -49,13 +49,15 @@ public abstract class Member {
     	return flightsCounter;
     }
 
-    public void printBookedFlights() {
+    public boolean printBookedFlights() {
 		if (flightsCounter > 0) {
 			for (int i = 0; i < flightsCounter; i++) {
 				System.out.println((i + 1) + " - # From: " + bookedFlights[i].getFrom() + "  " + "To: " + bookedFlights[i].getTo() + "  " + "Flight Number: " + bookedFlights[i].getFlightNum() +" ");
 			}
+            return true;
 		} else {
 			System.out.println("There is no flights");
+            return false;
 		}
 	}
 

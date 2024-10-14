@@ -10,16 +10,16 @@ public class LoyaltyProgram {
 	
 	// Parameterized Constructor
 	public LoyaltyProgram() {
-		members = new Member[5];
-		flights = new Flight[5];
+		members = new Member[3];
+		flights = new Flight[50];
 	}
 	
 	// Adding members to our system
 	public boolean addMembers(Member member) {
 		if (numOfMembers < members.length && !searchForMember(member)) {
-			// members[numOfMembers++] = new SilverMember(member);
+			members[numOfMembers++] = new SilverMember(member);
 			// members[numOfMembers++] = new GoldMember(member);
-			members[numOfMembers++] = new PlatinumMember(member);
+			// members[numOfMembers++] = new PlatinumMember(member);
 	    	System.out.println("Member has been created successfully");
 			return true;
 		}
@@ -149,4 +149,44 @@ public class LoyaltyProgram {
 		member.printBookedFlights();
 		System.out.println("========================================================================");
 	}
+
+	// Delete Flight
+	public void deleteFlight(Member member) {
+		String choice;
+		boolean found = false;
+		// Print booked flights
+		do {
+			System.out.println("==========================[Booked Flights]==========================");
+			 member.printBookedFlights();
+
+			 System.out.print("Enter the flight number you'd like to delete: ");
+			 choice = scanner.next();
+
+			 for (int i = 0; i < member.flightsCounter; i++) {
+				if (choice.equalsIgnoreCase(member.bookedFlights[i].getFlightNum())) {
+					// Substract points
+					member.substractPoints(member.bookedFlights[i].getDistance());
+					for (int j = i; j < member.flightsCounter - 1; j++) {
+						member.bookedFlights[j] = member.bookedFlights[j + 1];
+					}
+					found = true;
+					member.bookedFlights[--member.flightsCounter] = null;
+					System.out.println("Flight deleted successfully");
+				}
+			 }
+			 if (!found) {
+				System.out.println("Invalid flight number. Please try again.");
+			 }
+		} while (!found);
+
+	}
+
+	// I'm Just trying to do
+	
+	// public static void upgrageMemberShip(Member member) {
+	// 	if (member.getMemberShipLevel().equalsIgnoreCase("Silver") && member.getPoints() >= 5000) {
+	// 		member.substractPoints(5000);
+	// 		member = new GoldMember(member);
+	// 	}
+	// }
 }

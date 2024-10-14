@@ -1,6 +1,6 @@
 public class Flight {
     // Attributes
-    private String flightNum = "R1";
+    private String flightNum = "SV84";
     private static int flightCounter;
     private Member [] passengers;
     private int passengerCounter;
