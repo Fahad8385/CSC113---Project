@@ -118,7 +118,7 @@ public class LoyaltyProgram {
                         System.out.println("You have already booked this flight!");
                     } else if (flights[i].addMember(member)) { // Adding the member to the flight and Add Flight to member's booked flights
                         member.addFlight(flights[i]);
-                        member.addPoints(flights[i].getDistance());
+                        member.addPoints(flights[i].getDistance()); // added this part
                         found = true;
                         System.out.println("Flight booked successfully!");
                     } else {
