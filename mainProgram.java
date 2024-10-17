@@ -27,8 +27,8 @@ public class mainProgram {
 		Flight f21 = new Flight("Riyadh", "Paris", 4654);
 		Flight f22 = new Flight("Jeddah", "New York", 10678);
 		Flight f23 = new Flight("Dammam", "Karachi", 1430);
-		Flight f24 = new Flight("Cairo" , "Athens", 1125);
-		Flight f25 = new Flight("Riyadh", "Mumbai", 2835);
+		Flight f24 = new Flight("Cairo" , "Athens", 10000);
+		Flight f25 = new Flight("Riyadh", "Mumbai", 10002);
 		
 		// Array of flights
 		Flight[] flightsArr = new Flight[]{
@@ -72,7 +72,8 @@ public class mainProgram {
 								case "1":
 									if (userInterface.backToMainMenu())
 										break;
-									loyaltyProgram.bookFlight(member);
+									if (loyaltyProgram.bookFlight(member))
+										state2 = false;
 									break;
 								case "2":
 									if (userInterface.backToMainMenu())

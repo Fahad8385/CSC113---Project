@@ -1,5 +1,8 @@
 public class PlatinumMember extends SilverMember {
 
+	public static final int pointsToUpgrade = 50000;
+
+	
 	/* - Just to remember the attributes
 	 	protected String name;
 	    protected String userName;
@@ -34,7 +37,7 @@ public class PlatinumMember extends SilverMember {
 	}
 
 	@Override
-	public void substractPoints(int distance) {
+	public void substractPointsDistanceBased(int distance) {
 		points -= distance * 1;
 	}
 	

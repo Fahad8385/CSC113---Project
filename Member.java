@@ -7,6 +7,7 @@ public abstract class Member {
     protected Flight[] bookedFlights;
     protected int flightsCounter;
 
+
     // Parameterized Constructor
     public Member(String name, String username, String password) {
     	this.name = name;
@@ -20,7 +21,7 @@ public abstract class Member {
 
     // Abstract Methods    
     public abstract void addPoints(int distance);
-    public abstract void substractPoints(int distance);
+    public abstract void substractPointsDistanceBased(int distance);
     public abstract String getMemberShipLevel();
     
     // Methods
@@ -60,6 +61,10 @@ public abstract class Member {
             return false;
 		}
 	}
+    
+    public void substractPointsPointsToUpgradeBased(int points) {
+    	this.points -= points;
+    }
 
     // Setters & Getters
     public void setName(String name) {

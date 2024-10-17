@@ -1,6 +1,8 @@
 
 public class SilverMember extends Member {
 
+	public static final int pointsToUpgrade = 5000;
+	
 	// No-Arguments Constructor
 		public SilverMember() {};
 	
@@ -24,11 +26,14 @@ public class SilverMember extends Member {
 	@Override
 	public void addPoints(int distance) {
 		points += distance * 0.5;
-		// LoyaltyProgram.upgrageMemberShip(this);
+//		if (points >= 5000) {
+//			System.out.println("Congratulations, you've been upgraded to Gold member");
+//			upgradeToGoldMember();
+//		}
 	}
 
 	@Override
-	public void substractPoints(int distance) {
+	public void substractPointsDistanceBased(int distance) {
 		points -= distance * 0.5;
 	}
 	
@@ -36,5 +41,11 @@ public class SilverMember extends Member {
 	public String getMemberShipLevel() {
 		return "Silver";
 	}
+	
+//	public void upgradeToGoldMember() {
+//		LoyaltyProgram loyaltyProgram = new LoyaltyProgram();
+//		loyaltyProgram.upgradeMember(this, new GoldMember(this));
+//
+//	}
 	
 }

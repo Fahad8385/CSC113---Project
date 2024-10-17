@@ -6,7 +6,12 @@ public class LoyaltyProgram {
 	private Member [] members; // We assume that the system can take max 5 members
 	private Flight [] flights;
 	private int numOfMembers;
-	private static int numOfFlights;
+	private int numOfFlights;
+	
+	// Copy Constructor
+	public LoyaltyProgram(LoyaltyProgram LoyaltyProgram) {
+		
+	}
 	
 	// Parameterized Constructor
 	public LoyaltyProgram() {
@@ -70,11 +75,8 @@ public class LoyaltyProgram {
 	// Searching for members
 	public boolean searchForMember(Member member) {
 		for (int i = 0; i < numOfMembers; i++) {
-			if (members[i].getUserName().equals(member.getUserName())) {
+			if (members[i].getUserName().equals(member.getUserName()))
 				return true;
-			} else {
-				return false;
-			}
 		}
 		return false;
 	}
@@ -92,12 +94,12 @@ public class LoyaltyProgram {
 	}
 	
 	// Book Flight
-	public void bookFlight(Member member) {
+	public boolean bookFlight(Member member) {
 		
 		// Check if the member has been reached max of booking
 		if (member.getFlightsCounter() == member.bookedFlights.length) {
 			System.out.println("Sorry... You have reached maximum of booked flights");
-			return;
+			return false;
 		}
 		
 		String choice;
@@ -119,11 +121,36 @@ public class LoyaltyProgram {
 						System.out.println("Flight booked successfully!");
 						state = true;
 					} else {
-						return;
+						return false;
 					}
 					
 					// 2. Add points to the member
 					member.addPoints(flights[i].getDistance());
+					
+					// 3. if the member reached specific points upgrade the membership level to the next level
+					if (member.getPoints() >= 5000 && member.getMemberShipLevel().equalsIgnoreCase("Silver")) {
+						for (int j = 0; j < numOfMembers; j++) {
+							if (member.getUserName().equalsIgnoreCase(members[j].getUserName())) {
+								member.substractPointsPointsToUpgradeBased(((SilverMember)members[j]).pointsToUpgrade);// members[j].pointsToUpgrade
+								members[j] = new GoldMember(member);
+								System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO GOLD MEMBERSHIP SUCCESSFULLY");
+								
+								// 4. Return to main menu
+								return true;
+							}
+						}
+					} else if (member.getPoints() >= 20000 && member.getMemberShipLevel().equalsIgnoreCase("Gold")) {
+						for (int j = 0; j < numOfMembers; j++) {
+							if (member.getUserName().equalsIgnoreCase(members[j].getUserName())) {
+								member.substractPointsPointsToUpgradeBased(((GoldMember)members[j]).pointsToUpgrade);// members[j].pointsToUpgrade
+								members[j] = new PlatinumMember(member);
+								System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO PLATINUM MEMBERSHIP SUCCESSFULLY");
+								
+								// 4. Return to main menu
+								return true;
+							}
+						}
+					}
 				}
 			}
 			if (!state) {
@@ -131,6 +158,7 @@ public class LoyaltyProgram {
 			}
 			
 		} while (!state);
+		return false;
 	}
 
 	// View Member Details Method
@@ -165,7 +193,7 @@ public class LoyaltyProgram {
 			 for (int i = 0; i < member.flightsCounter; i++) {
 				if (choice.equalsIgnoreCase(member.bookedFlights[i].getFlightNum())) {
 					// Substract points
-					member.substractPoints(member.bookedFlights[i].getDistance());
+					member.substractPointsDistanceBased(member.bookedFlights[i].getDistance());
 					for (int j = i; j < member.flightsCounter - 1; j++) {
 						member.bookedFlights[j] = member.bookedFlights[j + 1];
 					}
@@ -178,15 +206,6 @@ public class LoyaltyProgram {
 				System.out.println("Invalid flight number. Please try again.");
 			 }
 		} while (!found);
-
 	}
 
-	// I'm Just trying to do
-	
-	// public static void upgrageMemberShip(Member member) {
-	// 	if (member.getMemberShipLevel().equalsIgnoreCase("Silver") && member.getPoints() >= 5000) {
-	// 		member.substractPoints(5000);
-	// 		member = new GoldMember(member);
-	// 	}
-	// }
 }
