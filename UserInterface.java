@@ -39,15 +39,53 @@ public class UserInterface {
     
     // Create Member
     public Member createMember() {
+		// First Name
     	System.out.print("First name: ");
     	String fname = scanner.next();
+		while (fname.length() < 3) {
+			System.out.println("Error. Must be greater than 3 characters!");
+			System.out.print("First name: ");
+    		fname = scanner.next();
+		}
+
+		// Last Name
 		System.out.print("Last name: ");
 		String lname = scanner.next();
-    	System.out.print("Username: ");
-    	String username = scanner.next().toLowerCase();
+		while (lname.length() < 3) {
+			System.out.println("Error. Must be greater than 3 characters!");
+			System.out.print("Last name: ");
+    		lname = scanner.next();
+		}
+
+		// Full name
+		String name = fname + " " + lname;
+
+		// Username
+    	String username = null;
+        String characters = "!@#$%^&*()+=-`~\\][|{}/.><,;:''\"\"";
+		boolean state;
+		do {
+			state = false;
+			System.out.print("Username: ");
+			username = scanner.next().toLowerCase();
+			for (int i = 0; i < username.length(); i++) {
+				if (characters.contains(String.valueOf(username.charAt(i)))) {
+					System.out.println("Characters are not allowed");
+					state = true;
+					break;
+				}
+			}
+		} while (state);
+		// Password
     	System.out.print("password: ");
     	String password = scanner.next();
-		String name = fname + " " + lname;
+
+		while (password.length() < 6) {
+			System.out.println("reEnter password");
+			System.out.print("password: ");
+			password = scanner.next();
+		}
+
     	Member member = new SilverMember(name, username, password);
     	return member;
     }
