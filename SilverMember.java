@@ -1,38 +1,40 @@
 
 public class SilverMember extends Member {
 
-    // Parameterized Constructor
-    public SilverMember(String name, String username, String password) {
-        super(name, username, password);
-    }
+	// No-Arguments Constructor
+		public SilverMember() {};
+	
+	// Parameterized Constructor
+	public SilverMember(String name, String username, String password) {
+		super(name, username, password);
+	}
+	
+	// Copy Constructor
+	public SilverMember (Member member) {
+		this.name = member.name;
+		this.userName = member.userName;
+		this.password = member.password;
+		this.points = member.points;
+		this.bookedFlights = member.bookedFlights;
+		this.flightsCounter = member.flightsCounter;
+	}
+	
 
-    // No-Arguments Constructor
-    public SilverMember() {
-    }
+	// Methods
+	@Override
+	public void addPoints(int distance) {
+		points += distance * 0.5;
+		// LoyaltyProgram.upgrageMemberShip(this);
+	}
 
-    ;
-
-    // Copy Constructor
-    public SilverMember(Member member) {
-        this.name = member.name;
-        this.userName = member.userName;
-        this.password = member.password;
-        this.points = member.points;
-        this.bookedFlights = member.bookedFlights;
-    }
-//	@Override
-//	public Member createMemeber(String name, String username, String password) {
-//		
-//	}
-
-    @Override
-    public void addPoints(int distance) {
-        points += (int) (distance * 0.5);
-    }
-
-    @Override
-    public void subtractPoints(double distance) {
-
-    }
-
+	@Override
+	public void substractPoints(int distance) {
+		points -= distance * 0.5;
+	}
+	
+	@Override
+	public String getMemberShipLevel() {
+		return "Silver";
+	}
+	
 }

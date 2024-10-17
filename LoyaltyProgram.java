@@ -1,145 +1,192 @@
 import java.util.Scanner;
 
 public class LoyaltyProgram {
-    // Attributes
-    private Scanner scanner = new Scanner(System.in);
-    private Member[] members; // We assume that the system can take max 5 members
-    private Flight[] flights;
-    private int numOfMembers;
-    private static int numOfFlights;
+	// Attributes
+	private Scanner scanner = new Scanner(System.in);	
+	private Member [] members; // We assume that the system can take max 5 members
+	private Flight [] flights;
+	private int numOfMembers;
+	private static int numOfFlights;
+	
+	// Parameterized Constructor
+	public LoyaltyProgram() {
+		members = new Member[3];
+		flights = new Flight[50];
+	}
+	
+	// Adding members to our system
+	public boolean addMembers(Member member) {
+		if (numOfMembers < members.length && !searchForMember(member)) {
+			members[numOfMembers++] = new SilverMember(member);
+			// members[numOfMembers++] = new GoldMember(member);
+			// members[numOfMembers++] = new PlatinumMember(member);
+	    	System.out.println("Member has been created successfully");
+			return true;
+		}
+		if (searchForMember(member)) {
+			System.out.println("Member already exists");
+		}
+		if (numOfMembers == members.length) {
+			System.out.println("Sorry... You have reached maximum of members");
+		}
+		return false;
+	}
 
-    // Parameterized Constructor
-    public LoyaltyProgram() {
-        members = new Member[5];
-        flights = new Flight[5];
-    }
+	public void addFlights(Flight flight) {
+		flights[numOfFlights++] = new Flight(flight);
+	}
 
-    // Adding members to our system
-    public boolean addMembers(Member member) {
-        if (numOfMembers < members.length && !searchForMember(member)) {
-            members[numOfMembers++] = new SilverMember(member);
-            System.out.println("Member has been created successfully");
-            return true;
-        }
-        if (searchForMember(member)) {
-            System.out.println("Member already exists");
-        }
-        if (numOfMembers == members.length) {
-            System.out.println("Sorry... You have reached maximum of members");
-        }
-        return false;
-    }
+	// Login member to the system
+	public Member login() {
+		int attempts = 0;
+		boolean found = false;
+		while (attempts < 3) {
+			System.out.print("Enter username: "); // f
+			String username = scanner.next().toLowerCase();
+			System.out.print("Enter password: "); // f
+			String password = scanner.next();
+			
+			// Checking if the input is valid
+			for (int i = 0; i < numOfMembers; i++) {
+				if (username.equals(members[i].getUserName()) && password.equals(members[i].getPassword())) {
+					System.out.println("Member found.");
+					found = true;
+					return members[i];
+				}
+			}
+			if (!found) {
+				System.out.println("username or password is incorrect");
+				attempts++;
+				System.out.println("Left Attempts: " + (3 - attempts));
+			}
+		} // end while loop
+		if (attempts == 3) {			 
+			System.out.println("You reached maximum attemps");
+			return null;
+		}
+		return null;
+	}
+	
+	// Searching for members
+	public boolean searchForMember(Member member) {
+		for (int i = 0; i < numOfMembers; i++) {
+			if (members[i].getUserName().equals(member.getUserName())) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return false;
+	}
 
-    public void addFlights(Flight flight) {
-        flights[numOfFlights++] = new Flight(flight);
-    }
+	// Print all flights details
+	public void listFlights() {
+		if (numOfFlights > 0) {
+			System.out.println(" - Avilable Flights: ");
+			for (int i = 0; i < numOfFlights; i++) {
+				System.out.println((i + 1) + " - # From: " + flights[i].getFrom() + "  " + "To: " + flights[i].getTo() + "  " + "Flight Number: " + flights[i].getFlightNum() +" ");
+			}
+		} else {
+			System.out.println("There is no flights");
+		}
+	}
+	
+	// Book Flight
+	public void bookFlight(Member member) {
+		
+		// Check if the member has been reached max of booking
+		if (member.getFlightsCounter() == member.bookedFlights.length) {
+			System.out.println("Sorry... You have reached maximum of booked flights");
+			return;
+		}
+		
+		String choice;
+		boolean state = false;
+		
+		do {
+			// Printing Flights Details
+			listFlights();
+			
+			System.out.print("Enter the flight number you'd like to book: ");
+			choice = scanner.next().toUpperCase();
+			
+			for (int i = 0; i < numOfFlights; i++) {
+				if (choice.equals(flights[i].getFlightNum())) {
+					
+					// 1. Add the member to passengers, Add the flight to bookedFlights
+					if (flights[i].addMember(member)) {
+						member.addFlight(flights[i]);
+						System.out.println("Flight booked successfully!");
+						state = true;
+					} else {
+						return;
+					}
+					
+					// 2. Add points to the member
+					member.addPoints(flights[i].getDistance());
+				}
+			}
+			if (!state) {
+				System.out.println("Invalid flight number. Please try again.");
+			}
+			
+		} while (!state);
+	}
 
-    // Login member to the system
-    public Member login() {
-        int attempts = 0;
-        while (attempts < 3) {
-            System.out.print("Enter username: "); // s
-            String username = scanner.next();
-            System.out.print("Enter password: "); // s
-            String password = scanner.next();
-            boolean memberFound = false;
-            // Checking if the input is valid // Need to be Edited // update, fixed the major issue, some part left
+	// View Member Details Method
+	public void viewMemberDetails(Member member) {
+		String name = member.getName();
+		String username = member.getUserName();
+		String password = member.getPassword();
+		int points = member.getPoints();
+		System.out.println("==========================[Member Information]==========================");
+		System.out.println("Name: " + name);
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+		System.out.println("Loyalty Points: " + points);
+		System.out.println("");
+		System.out.println(" - Booked Flights");
+		member.printBookedFlights();
+		System.out.println("========================================================================");
+	}
 
-            for (int i = 0; i < numOfMembers; i++) {
-                if (username.equals(members[i].getUserName()) && password.equals(members[i].getPassword())) {
-                    System.out.println("Member found.");
-                    memberFound = true;
-                    return members[i];
-                }
-            }
-            // this part needs to be fixed
-            if (!memberFound) {
-                System.out.println("username or password is incorrect");
-                attempts++;
-                System.out.println("Left Attempts: " + (3 - attempts));
-            }
+	// Delete Flight
+	public void deleteFlight(Member member) {
+		String choice;
+		boolean found = false;
+		// Print booked flights
+		do {
+			System.out.println("==========================[Booked Flights]==========================");
+			 member.printBookedFlights();
 
-            if (numOfMembers == 0) {
-                System.out.println("There is no members");
-                break;
-            }
-        }
-        if (attempts == 3) {
-            System.out.println("You reached maximum attemps");
-            return null;
-        }
-        return null;
-    }
+			 System.out.print("Enter the flight number you'd like to delete: ");
+			 choice = scanner.next();
 
-    // Searching for members
-    public boolean searchForMember(Member member) {
-        for (int i = 0; i < numOfMembers; i++) {
-//			if (members[i].getUserName().equals(member.getUserName()) && members[i].getPassword().equals(member.getPassword()));
-            if (members[i].getUserName().equals(member.getUserName())) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-//		if (numOfMembers == 0) {
-//			System.out.println("There is no members");
-//		}
-        return false;
-    }
+			 for (int i = 0; i < member.flightsCounter; i++) {
+				if (choice.equalsIgnoreCase(member.bookedFlights[i].getFlightNum())) {
+					// Substract points
+					member.substractPoints(member.bookedFlights[i].getDistance());
+					for (int j = i; j < member.flightsCounter - 1; j++) {
+						member.bookedFlights[j] = member.bookedFlights[j + 1];
+					}
+					found = true;
+					member.bookedFlights[--member.flightsCounter] = null;
+					System.out.println("Flight deleted successfully");
+				}
+			 }
+			 if (!found) {
+				System.out.println("Invalid flight number. Please try again.");
+			 }
+		} while (!found);
 
-    // List flight
-    public void listFlights() {
-        String allFlights = "";
-        for (int i = 0; i < numOfFlights; i++)
-            System.out.println((i + 1) + ". From: " + flights[i].getFrom() + " To " + flights[i].getTo() + ", Flight Number: " + flights[i].getFlightNum());
-    }
+	}
 
-
-    public void bookFlight(Member member) {
-        String choice;
-        boolean found = false;
-        // Check if the member can book flights (full or not)
-        if (member.getFlightsCounter() >= 3) {
-            System.out.println("Sorry... You have reached maximum of booked flights");
-            found = true;
-        }
-
-        while (!found) {
-            listFlights();
-            System.out.print("Enter the flight number you'd like to book: ");
-            choice = scanner.next();
-
-            // Note: we need to handle if the member book a flight twice // update: Done
-            for (int i = 0; i < numOfFlights; i++) {
-                if (choice.equals(flights[i].getFlightNum())) {
-
-                    if (flights[i].hasMember(member)) { // Check if the member have booked the flight before
-                        found = true;
-                        System.out.println("You have already booked this flight!");
-                    } else if (flights[i].addMember(member)) { // Adding the member to the flight and Add Flight to member's booked flights
-                        member.addFlight(flights[i]);
-                        member.addPoints(flights[i].getDistance()); // added this part
-                        found = true;
-                        System.out.println("Flight booked successfully!");
-                    } else {
-                        found = true;
-                        System.out.println("Apologies, this flight is fully booked.");
-                        break;
-                    }
-
-                    break;
-                }
-            }
-
-            if (!found) {
-                System.out.println("Invalid flight number. Please try again.");
-            }
-
-        }
-    }
-
-    // View points
-    public void viewPoints(Member member) {
-        System.out.println("You have: " + member.getPoints() + " loyalty points");
-    }
+	// I'm Just trying to do
+	
+	// public static void upgrageMemberShip(Member member) {
+	// 	if (member.getMemberShipLevel().equalsIgnoreCase("Silver") && member.getPoints() >= 5000) {
+	// 		member.substractPoints(5000);
+	// 		member = new GoldMember(member);
+	// 	}
+	// }
 }
