@@ -43,20 +43,21 @@ public class mainProgram {
                         while (state2) {
                             choice = userInterface.loginInterface();
                             switch (choice) {
-                                case "1": // 1. Book a flight
+                                case "1":
                                     if (userInterface.backToMainMenu())
                                         break; // can replace with continue depending on the situation
                                     loyaltyProgram.bookFlight(member);
                                     break;
-                                case "2": // 2. Cancel a flight booking
+                                case "2":
                                     break;
-                                case "3": // 3. View points
-                                    loyaltyProgram.viewPoints(member);
+                                case "3":
                                     break;
-                                case "4": // 4. Log out
+                                case "4":
+                                    // Logging out --> going back to main menu
                                     state2 = false;
                                     break;
-                                case "q": // 5. Quit the program
+                                case "q":
+                                    // Quit the program
                                     state2 = false;
                                     state1 = false;
                                     break;

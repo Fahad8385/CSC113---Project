@@ -3,19 +3,19 @@ public class Flight {
     private String flightNum = "R1";
     private static int flightCounter;
     private int passengerCounter;
-    private Member[] passengers;
+    private Member [] passengers;
     private String from; // "e.g" : Riyadh
     private String to; // "e.g" : Jeddah
-    private int distance; // 954.6 KM - I look up for it in google (: // Well done, details are important ofc ;)
+    private double distance; // 954.6 KM - I look up for it in google (: // Well done, details are important ofc ;)
 
     // Parametrized Constructor
-    public Flight(String from, String to, int distance) {
-        flightNum += (flightCounter + 1);
+    public Flight(String from, String to, double distance) {
+        flightNum += (flightCounter+1);
         flightCounter++;
         this.from = from;
         this.to = to;
         this.distance = distance;
-        passengers = new Member[15];
+        passengers = new Member[2];
     }
 
     // Copy Constructor
@@ -28,21 +28,13 @@ public class Flight {
         this.passengerCounter = flight.passengerCounter;
     }
 
-    //check member in flight
-    public boolean hasMember(Member member) {
-        for (int i = 0; i < passengerCounter; i++) {
-            if (passengers[i].equals(member)) {
-                return true;  // Member found in this flight
-            }
-        }
-        return false;
-    }
-
     // Add member to flight
     public boolean addMember(Member member) {
-        // hasMember(member); // No need for it here
+        for(int i = 0; i < passengerCounter; i++)
+            if (passengers[i].equals(member))
+                return false;
 
-        if (passengerCounter >= passengers.length)
+        if(passengerCounter >= passengers.length)
             return false;
 
         passengers[passengerCounter] = member;
@@ -59,12 +51,7 @@ public class Flight {
         return from;
     }
 
-    public String getTo() {
-        return to;
-    }
-
-    public int getDistance() {
-        return distance;
-    }
+    public String getTo() { return to; }
+    public double getDistance() { return distance; }
 
 }

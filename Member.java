@@ -7,28 +7,26 @@ public abstract class Member {
     protected String password;
     protected int points;
     protected Flight[] bookedFlights;
-    protected int flightsCounter;
-    ;
+    protected int flightsCounter;;
 
     // Parameterized Constructor
     public Member(String name, String username, String password) {
-        this.name = name;
-        this.userName = username;
-        this.password = password;
+    	this.name = name;
+    	this.userName = username;
+    	this.password = password;
         bookedFlights = new Flight[3];
     }
-
+    
     // No-Arguments Constructor
-    public Member() {
-    }
+    public Member() {}
 
     // Abstract Methods
 //    public abstract Member createMemeber(String name, String username, String password);
-
-    public abstract void addPoints(int distance);
-
-    public abstract void subtractPoints(double distance);
-
+    
+    public abstract void setPoints(int distance);
+    
+    public abstract void substractPoints(double distance);
+    
     // Setters & Getters
     public void setName(String name) {
         this.name = name;
@@ -58,11 +56,7 @@ public abstract class Member {
         return points;
     }
 
-    public int getFlightsCounter() {
-        return flightsCounter;
-    }
-
-    ;
+    public int getFlightsCounter() { return flightsCounter; };
 
     public boolean addFlight(Flight flight) {
         // No need for this part
