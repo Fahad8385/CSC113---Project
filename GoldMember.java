@@ -1,16 +1,6 @@
 public class GoldMember extends SilverMember {
-
-	public static final int pointsToUpgrade = 20000;
-
-	
-	/* - Just to remember the attributes
-	 	protected String name;
-	    protected String userName;
-	    protected String password;
-	    protected int points;
-	    protected Flight[] bookedFlights;
-	    protected int flightsCounter;
-	 */
+	// Attributes
+	public static final int POINTS_TO_UPGRADE = 20000;
 	
 	// No-Arguments Constructor
 	public GoldMember() {};
@@ -46,4 +36,7 @@ public class GoldMember extends SilverMember {
 		return "Gold";
 	}
     
+	public int getPointsToUpgrade() {
+		return POINTS_TO_UPGRADE;
+	}
 }

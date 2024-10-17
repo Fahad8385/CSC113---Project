@@ -3,15 +3,10 @@ import java.util.Scanner;
 public class LoyaltyProgram {
 	// Attributes
 	private Scanner scanner = new Scanner(System.in);	
-	private Member [] members; // We assume that the system can take max 5 members
+	private Member [] members;
 	private Flight [] flights;
 	private int numOfMembers;
 	private int numOfFlights;
-	
-	// Copy Constructor
-	public LoyaltyProgram(LoyaltyProgram LoyaltyProgram) {
-		
-	}
 	
 	// Parameterized Constructor
 	public LoyaltyProgram() {
@@ -23,8 +18,6 @@ public class LoyaltyProgram {
 	public boolean addMembers(Member member) {
 		if (numOfMembers < members.length && !searchForMember(member)) {
 			members[numOfMembers++] = new SilverMember(member);
-			// members[numOfMembers++] = new GoldMember(member);
-			// members[numOfMembers++] = new PlatinumMember(member);
 	    	System.out.println("Member has been created successfully");
 			return true;
 		}
@@ -46,9 +39,9 @@ public class LoyaltyProgram {
 		int attempts = 0;
 		boolean found = false;
 		while (attempts < 3) {
-			System.out.print("Enter username: "); // f
+			System.out.print("Enter username: ");
 			String username = scanner.next().toLowerCase();
-			System.out.print("Enter password: "); // f
+			System.out.print("Enter password: ");
 			String password = scanner.next();
 			
 			// Checking if the input is valid
@@ -131,7 +124,7 @@ public class LoyaltyProgram {
 					if (member.getPoints() >= 5000 && member.getMemberShipLevel().equalsIgnoreCase("Silver")) {
 						for (int j = 0; j < numOfMembers; j++) {
 							if (member.getUserName().equalsIgnoreCase(members[j].getUserName())) {
-								member.substractPointsPointsToUpgradeBased(((SilverMember)members[j]).pointsToUpgrade);// members[j].pointsToUpgrade
+								member.subtractPointsPointsToUpgradeBased(((SilverMember)members[j]).POINTS_TO_UPGRADE);// members[j].pointsToUpgrade
 								members[j] = new GoldMember(member);
 								System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO GOLD MEMBERSHIP SUCCESSFULLY");
 								
@@ -142,7 +135,7 @@ public class LoyaltyProgram {
 					} else if (member.getPoints() >= 20000 && member.getMemberShipLevel().equalsIgnoreCase("Gold")) {
 						for (int j = 0; j < numOfMembers; j++) {
 							if (member.getUserName().equalsIgnoreCase(members[j].getUserName())) {
-								member.substractPointsPointsToUpgradeBased(((GoldMember)members[j]).pointsToUpgrade);// members[j].pointsToUpgrade
+								member.subtractPointsPointsToUpgradeBased(((GoldMember)members[j]).POINTS_TO_UPGRADE);// members[j].pointsToUpgrade
 								members[j] = new PlatinumMember(member);
 								System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO PLATINUM MEMBERSHIP SUCCESSFULLY");
 								
