@@ -7,6 +7,8 @@ public abstract class Member {
     protected Flight[] bookedFlights;
     protected int flightsCounter;
 
+    // No-Arguments Constructor
+    public Member() {}
 
     // Parameterized Constructor
     public Member(String name, String username, String password) {
@@ -15,14 +17,12 @@ public abstract class Member {
     	this.password = password;
     	bookedFlights = new Flight[50];
     }
-    
-    // No-Arguments Constructor
-    public Member() {}
 
     // Abstract Methods    
     public abstract void addPoints(int distance);
     public abstract void substractPointsDistanceBased(int distance);
     public abstract String getMemberShipLevel();
+    public abstract int getPointsToUpgrade();
     
     // Methods
     public boolean addFlight(Flight flight) {
@@ -41,7 +41,7 @@ public abstract class Member {
     	}
     	
     	// Add the flight to bookedFlights
-    	bookedFlights[flightsCounter++] = flight; // Aggregation 
+    	bookedFlights[flightsCounter++] = flight;
     	return true;
     }
     
@@ -62,7 +62,7 @@ public abstract class Member {
 		}
 	}
     
-    public void substractPointsPointsToUpgradeBased(int points) {
+    public void subtractPointsPointsToUpgradeBased(int points) {
     	this.points -= points;
     }
 

@@ -1,17 +1,8 @@
 public class PlatinumMember extends SilverMember {
 
-	public static final int pointsToUpgrade = 50000;
+	// For Future Using
+	// public static final int pointsToUpgrade = 50000;
 
-	
-	/* - Just to remember the attributes
-	 	protected String name;
-	    protected String userName;
-	    protected String password;
-	    protected int points;
-	    protected Flight[] bookedFlights;
-	    protected int flightsCounter;
-	 */
-	
 	// No-Arguments Constructor
 	public PlatinumMember() {};
 	
@@ -45,5 +36,9 @@ public class PlatinumMember extends SilverMember {
 	public String getMemberShipLevel() {
 		return "Platinum";
 	}
-    
+
+	// For Future Using
+    // public int getPointsToUpgrade() {
+	// 	return POINTS_TO_UPGRADE;
+	// }
 }
