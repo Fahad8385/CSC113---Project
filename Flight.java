@@ -2,55 +2,55 @@ public class Flight {
     // Attributes
     private String flightNum = "SV84";
     private static int flightCounter;
-    private Member [] passengers;
+    private Member[] passengers;
     private int passengerCounter;
-    private String from;
-    private String to;
+    private String departure;
+    private String destination;
     private int distance;
 
     // Parameterized Constructor
-    public Flight(String from, String to, int distance) {
+    public Flight(String from, String destination, int distance) {
         flightNum += (flightCounter + 1);
         flightCounter++;
-        this.from = from;
-        this.to = to;
+        this.departure = from;
+        this.destination = destination;
         this.distance = distance;
         passengers = new Member[15];
     }
-    
+
     // Copy Constructor
     public Flight(Flight flight) {
-    	this.from = flight.from;
-    	this.to = flight.to;
-    	this.distance = flight.distance;
-    	this.flightNum = flight.flightNum;
-    	this.passengers = flight.passengers;
-    	this.passengerCounter = flight.passengerCounter;
-    	
+        this.departure = flight.departure;
+        this.destination = flight.destination;
+        this.distance = flight.distance;
+        this.flightNum = flight.flightNum;
+        this.passengers = flight.passengers;
+        this.passengerCounter = flight.passengerCounter;
+
     }
 
     // Add member to flight
     public boolean addMember(Member member) {
-    	// Checking if member is already booked the flight
+        // Checking if member is already booked the flight
         if (hasMember(member)) {
-            System.out.println("The member is already booked this flight");
+            System.out.println("You have already booked this flight");
             return false;
         }
-            	
+
         // Check if the flight is full
         if (passengerCounter == passengers.length) {
-        	System.out.println("Apologies, this flight is fully booked.");
-        	return false;
+            System.out.println("Apologies, this flight is fully booked.");
+            return false;
         }
-        
-    	// Add the Member to passengers
+
+        // Add the Member to passengers
         passengers[passengerCounter++] = member;
         return true;
     }
 
     public boolean hasMember(Member member) {
         for (int i = 0; i < passengerCounter; i++) {
-            if (passengers[i].getUserName().equals(member.getUserName())) {
+            if (passengers[i].getUsername().equals(member.getUsername())) {
                 return true; // Member found in this flight
             }
         }
@@ -62,14 +62,38 @@ public class Flight {
         return flightNum;
     }
 
-    public String getFrom() {
-        return from;
+    public String getDeparture() {
+        return departure;
     }
 
-    public String getTo() {
-        return to;
+    public String getDestination() {
+        return destination;
     }
+
     public int getDistance() {
         return distance;
+    }
+
+    public Flight getFlight(String flightNum) {
+        return this;
+    }
+
+    public boolean removePassenger(Member member) {
+        boolean found = false;
+        // Find the member in the passengers array
+        for (int i = 0; i < passengerCounter; i++) {
+            if (passengers[i].equals(member)) {
+                // Shift all passengers after the one to be removed
+                for (int j = i; j < passengerCounter - 1; j++) {
+                    passengers[j] = passengers[j + 1];
+                }
+                // Reduce the passenger count and set the last one to null
+                passengers[--passengerCounter] = null;
+                found = true;
+                break;
+            }
+        }
+
+        return found; // Return true if the member was found and removed
     }
 }
