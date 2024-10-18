@@ -188,6 +188,8 @@ public class LoyaltyProgram {
                 if (choice.equalsIgnoreCase(member.bookedFlights[i].getFlightNum())) {
                     // Subtract points
                     member.subtractPointsByDistance(member.bookedFlights[i].getDistance());
+
+
                     boolean removedFromFlight = member.bookedFlights[i].removePassenger(member);
 
                     if (removedFromFlight) {

@@ -74,15 +74,11 @@ public class Flight {
         return distance;
     }
 
-    public Flight getFlight(String flightNum) {
-        return this;
-    }
-
     public boolean removePassenger(Member member) {
         boolean found = false;
         // Find the member in the passengers array
         for (int i = 0; i < passengerCounter; i++) {
-            if (passengers[i].equals(member)) {
+            if (passengers[i].getUsername().equals(member.getUsername())) {
                 // Shift all passengers after the one to be removed
                 for (int j = i; j < passengerCounter - 1; j++) {
                     passengers[j] = passengers[j + 1];
