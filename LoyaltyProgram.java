@@ -74,18 +74,6 @@ public class LoyaltyProgram {
         return false;
     }
 
-    // Print all flights details
-//	public void listFlights() {
-//		if (numOfFlights > 0) {
-//			System.out.println(" - Available Flights: ");
-//			for (int i = 0; i < numOfFlights; i++) {
-//				System.out.println((i + 1) + " - # Departure: " + flights[i].getDeparture() + "  " + "Destination: " + flights[i].getDestination() + "  " + "Flight Number: " + flights[i].getFlightNum() +" ");
-//			}
-//		} else {
-//			System.out.println("There is no flights");
-//		}
-//	}
-
     public void listFlights() {
         if (numOfFlights > 0) {
             System.out.println(" - Available Flights: ");
