@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.*;
 
 public class LoyaltyProgram {
     // Attributes
@@ -35,7 +36,7 @@ public class LoyaltyProgram {
     }
 
     // Login member to the system
-    public Member login() {
+    public Member login() throws CustomException { // Added Custom Ex. (1)
         int attempts = 0;
         boolean found = false;
         while (attempts < 3) {
@@ -58,11 +59,7 @@ public class LoyaltyProgram {
                 System.out.println("Left Attempts: " + (3 - attempts));
             }
         } // end while loop
-        if (attempts == 3) {
-            System.out.println("You reached maximum attempts");
-            return null;
-        }
-        return null;
+        throw new CustomException("You reached maximum attempts");
     }
 
     // Searching for members
@@ -90,9 +87,9 @@ public class LoyaltyProgram {
     public boolean bookFlight(Member member) {
 
         // Check if the member has been reached max of booking
-        if (member.getFlightsCounter() == member.bookedFlights.length) {
-            System.out.println("Sorry... You have reached maximum of booked flights");
-            return false;
+
+        if (member.getFlightsCounter() == member.bookedFlights.length) { // added Unchecked Ex. (1)
+            throw new IllegalStateException("Sorry... You have reached maximum of booked flights.");
         }
 
         String choice;
@@ -214,4 +211,41 @@ public class LoyaltyProgram {
         } while (!found);
     }
 
+    public void exitProgram() {
+        System.out.println("Exited...");
+        try {
+            this.saveMembersToFile("members.dat");
+            this.saveFlightsToFile("flights.dat");
+            System.out.println("Data saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+    public void saveMembersToFile(String filename) throws IOException { // Save members list to file
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(members);
+            oos.writeInt(numOfMembers);
+        }
+    }
+
+    public void loadMembersFromFile(String filename) throws IOException, ClassNotFoundException { // Load members list from file
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            members = (Member[]) ois.readObject();
+            numOfMembers = ois.readInt();
+        }
+    }
+
+    public void saveFlightsToFile(String filename) throws IOException { // Save flights list to file
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
+            oos.writeObject(flights);
+            oos.writeInt(numOfFlights);
+        }
+    }
+
+    public void loadFlightsFromFile(String filename) throws IOException, ClassNotFoundException { // Load flights list from file
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filename))) {
+            flights = (Flight[]) ois.readObject();
+            numOfFlights = ois.readInt();
+        }
+    }
 }

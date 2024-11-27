@@ -1,4 +1,6 @@
-public class Flight {
+import java.io.Serializable;
+
+public class Flight implements Serializable {
     // Attributes
     private String flightNum = "SV84";
     private static int flightCounter;

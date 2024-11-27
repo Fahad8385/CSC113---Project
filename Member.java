@@ -1,4 +1,6 @@
-public abstract class Member {
+import java.io.Serializable;
+
+public abstract class Member implements Serializable {
     // Attributes
     protected String name;
     protected String username;
@@ -16,7 +18,7 @@ public abstract class Member {
         this.name = name;
         this.username = username;
         this.password = password;
-        bookedFlights = new Flight[50];
+        bookedFlights = new Flight[3];
     }
 
     // Abstract Methods    

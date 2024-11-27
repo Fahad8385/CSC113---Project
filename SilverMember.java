@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class SilverMember extends Member {
+public class SilverMember extends Member implements Serializable {
     // Attributes
     private static final int POINTS_TO_UPGRADE = 5000;
 

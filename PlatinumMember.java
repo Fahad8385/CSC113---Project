@@ -1,4 +1,6 @@
-public class PlatinumMember extends SilverMember {
+import java.io.Serializable;
+
+public class PlatinumMember extends SilverMember implements Serializable {
 
     // For Future Using
     // public static final int pointsToUpgrade = 50000;
