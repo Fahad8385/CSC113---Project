@@ -1,21 +1,20 @@
-public class PlatinumMember extends SilverMember {
+public class SkyNavigator extends SkyExplorer {
+    // Attributes
+    private static final int POINTS_TO_UPGRADE = 50000;
 
-    // For Future Using
-    // public static final int pointsToUpgrade = 50000;
-
-    //  No-Arguments Constructor
-    public PlatinumMember() {
+    // No-Arguments Constructor
+    public SkyNavigator() {
     }
 
     ;
 
     // Parameterized Constructor
-    public PlatinumMember(String name, String username, String password) {
+    public SkyNavigator(String name, String username, String password) {
         super(name, username, password);
     }
 
     // Copy Constructor
-    public PlatinumMember(Member member) {
+    public SkyNavigator(Member member) {
         this.name = member.name;
         this.username = member.username;
         this.password = member.password;
@@ -27,7 +26,7 @@ public class PlatinumMember extends SilverMember {
     // Methods
     @Override
     public void addPoints(int distance) {
-        points += distance * 2;
+        points += distance * 1;
     }
 
     @Override
@@ -37,11 +36,10 @@ public class PlatinumMember extends SilverMember {
 
     @Override
     public String getMembershipLevel() {
-        return "Platinum";
+        return "SkyNavigator";
     }
 
-    // For Future Using
-    // public int getPointsToUpgrade() {
-    // 	return POINTS_TO_UPGRADE;
-    // }
+    public int getPointsToUpgrade() {
+        return POINTS_TO_UPGRADE;
+    }
 }

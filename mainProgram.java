@@ -4,21 +4,22 @@ public class mainProgram {
         UserInterface userInterface = new UserInterface();
 
         // Flights
-        Flight f1 = new Flight("Riyadh", "Jeddah ", 853);
-        Flight f2 = new Flight("Jeddah", "Dammam ", 1201);
-        Flight f3 = new Flight("Tabuk ", "Riyadh ", 1085);
-        Flight f4 = new Flight("Riyadh", "Cairo  ", 1613);
-        Flight f5 = new Flight("Riyadh", "Dubai", 872);
-        Flight f6 = new Flight("Cairo", "Kuwait", 1615);
-        Flight f7 = new Flight("Jeddah", "Khartoum", 1602);
-        Flight f8 = new Flight("Riyadh", "Muscat", 1405);
-        Flight f9 = new Flight("Jeddah", "London", 4650);
-        Flight f10 = new Flight("Cairo", "Rome", 2140);
-        Flight f11 = new Flight("Riyadh", "Istanbul", 2515);
-        Flight f12 = new Flight("Jeddah", "Doha", 1320);
-        Flight f13 = new Flight("Riyadh", "Paris", 4654);
-        Flight f14 = new Flight("Jeddah", "New York", 10678);
-        Flight f15 = new Flight("Riyadh", "Mumbai", 2761);
+        Flight f1 = new Flight("Riyadh", "Jeddah", 25000);
+        Flight f2 = new Flight("Jeddah", "Dammam", 50000);
+        Flight f3 = new Flight("Tabuk", "Riyadh", 674);
+        Flight f4 = new Flight("Riyadh", "Cairo", 1002);
+        Flight f5 = new Flight("Riyadh", "Dubai", 542);
+        Flight f6 = new Flight("Cairo", "Kuwait", 1004);
+        Flight f7 = new Flight("Jeddah", "Khartoum", 995);
+        Flight f8 = new Flight("Riyadh", "Muscat", 873);
+        Flight f9 = new Flight("Jeddah", "London", 2889);
+        Flight f10 = new Flight("Cairo", "Rome", 1330);
+        Flight f11 = new Flight("Riyadh", "Istanbul", 1563);
+        Flight f12 = new Flight("Jeddah", "Doha", 820);
+        Flight f13 = new Flight("Riyadh", "Paris", 2892);
+        Flight f14 = new Flight("Jeddah", "New York", 6635);
+        Flight f15 = new Flight("Riyadh", "Mumbai", 1716);
+
 
         // Array of flights
         Flight[] flightsArr = new Flight[]{

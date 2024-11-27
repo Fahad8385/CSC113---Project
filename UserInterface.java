@@ -86,7 +86,7 @@ public class UserInterface {
             password = scanner.next();
         }
 
-        Member member = new SilverMember(name, username, password);
+        Member member = new SkyExplorer(name, username, password);
         return member;
     }
 

@@ -1,20 +1,21 @@
-public class GoldMember extends SilverMember {
+
+public class SkyExplorer extends Member {
     // Attributes
-    private static final int POINTS_TO_UPGRADE = 20000;
+    private static final int POINTS_TO_UPGRADE = 25000;
 
     // No-Arguments Constructor
-    public GoldMember() {
+    public SkyExplorer() {
     }
 
     ;
 
     // Parameterized Constructor
-    public GoldMember(String name, String username, String password) {
+    public SkyExplorer(String name, String username, String password) {
         super(name, username, password);
     }
 
     // Copy Constructor
-    public GoldMember(Member member) {
+    public SkyExplorer(Member member) {
         this.name = member.name;
         this.username = member.username;
         this.password = member.password;
@@ -23,22 +24,24 @@ public class GoldMember extends SilverMember {
         this.flightsCounter = member.flightsCounter;
     }
 
+
     // Methods
     @Override
     public void addPoints(int distance) {
-        points += distance * 1;
+        points += (int) (distance * 1);
     }
 
     @Override
     public void subtractPointsByDistance(int distance) {
-        points -= distance * 1;
+        points -= (int) (distance * 0.5);
     }
 
     @Override
     public String getMembershipLevel() {
-        return "Gold";
+        return "SkyExplorer";
     }
 
+    @Override
     public int getPointsToUpgrade() {
         return POINTS_TO_UPGRADE;
     }

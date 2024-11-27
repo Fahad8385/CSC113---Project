@@ -17,7 +17,7 @@ public class LoyaltyProgram {
     // Adding members to our system
     public boolean addMembers(Member member) {
         if (numOfMembers < members.length && !searchForMember(member)) {
-            members[numOfMembers++] = new SilverMember(member);
+            members[numOfMembers++] = new SkyExplorer(member);
             System.out.println("Member has been created successfully");
             return true;
         }
@@ -119,23 +119,23 @@ public class LoyaltyProgram {
                     member.addPoints(flights[i].getDistance());
 
                     // 3. if the member reached specific points upgrade the membership level to the next level
-                    if (member.getPoints() >= member.getPointsToUpgrade() && member.getMembershipLevel().equalsIgnoreCase("Silver")) {
+                    if (member.getPoints() >= member.getPointsToUpgrade() && member.getMembershipLevel().equalsIgnoreCase("SkyExplorer")) {
                         for (int j = 0; j < numOfMembers; j++) {
                             if (member.getUsername().equalsIgnoreCase(members[j].getUsername())) {
                                 member.subtractByPointsToUpgrade(members[j].getPointsToUpgrade()); // members[j].pointsToUpgrade
-                                members[j] = new GoldMember(member);
-                                System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO GOLD MEMBERSHIP SUCCESSFULLY");
+                                members[j] = new SkyNavigator(member);
+                                System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO SKYNAVIGATOR MEMBERSHIP SUCCESSFULLY");
 
                                 // 4. Return to main menu
                                 return true;
                             }
                         }
-                    } else if (member.getPoints() >= member.getPointsToUpgrade() && member.getMembershipLevel().equalsIgnoreCase("Gold")) {
+                    } else if (member.getPoints() >= member.getPointsToUpgrade() && member.getMembershipLevel().equalsIgnoreCase("SkyNavigator")) {
                         for (int j = 0; j < numOfMembers; j++) {
                             if (member.getUsername().equalsIgnoreCase(members[j].getUsername())) {
                                 member.subtractByPointsToUpgrade(members[j].getPointsToUpgrade()); // members[j].pointsToUpgrade
-                                members[j] = new PlatinumMember(member);
-                                System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO PLATINUM MEMBERSHIP SUCCESSFULLY");
+                                members[j] = new SkyPioneer(member);
+                                System.out.println("CONGRATULATIONS, YOUR MEMBERSHIP HAS BEEN UPGRADED TO SKYPIONEER MEMBERSHIP SUCCESSFULLY");
 
                                 // 4. Return to main menu
                                 return true;
