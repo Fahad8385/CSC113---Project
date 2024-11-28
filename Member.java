@@ -51,6 +51,24 @@ public abstract class Member implements Serializable {
         return true;
     }
 
+    public boolean removeFlight(Flight flight) {
+        boolean found = false;
+        // Find the member in the passengers array
+        for (int i = 0; i < flightsCounter; i++) {
+            if (bookedFlights[i].getFlightNum().equals(flight.getFlightNum())) {
+                // Shift all passengers after the one to be removed
+                for (int j = i; j < flightsCounter - 1; j++) {
+                    bookedFlights[j] = bookedFlights[j + 1];
+                }
+                // Reduce the passenger count and set the last one to null
+                bookedFlights[--flightsCounter] = null;
+                found = true;
+                break;
+            }
+        }
+
+        return found; // Return true if the member was found and removed
+    }
 
     public int getFlightsCounter() {
         return flightsCounter;

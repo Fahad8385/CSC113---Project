@@ -10,6 +10,7 @@ public class mainProgram {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("No saved data found. Starting fresh.");
         }
+
 //        // After I saved flights in the file for the first time, there is no need for the hardcode anymore :D
 //        // Flights
 //        Flight f1 = new Flight("Riyadh", "Jeddah ", 853);

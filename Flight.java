@@ -33,11 +33,11 @@ public class Flight implements Serializable {
 
     // Add member to flight
     public boolean addMember(Member member) {
-        // Checking if member is already booked the flight
-        if (hasMember(member)) {
-            System.out.println("You have already booked this flight");
-            return false;
-        }
+        // Checking if member is already booked the flight, I found out there is no need for this
+//        if (!hasMember(member)) {
+//            System.out.println("You have already booked this flight");
+//            return false;
+//        }
 
         // Check if the flight is full
         if (passengerCounter == passengers.length) {
@@ -50,13 +50,45 @@ public class Flight implements Serializable {
         return true;
     }
 
+    public boolean removePassenger(Member member) {
+        boolean found = false;
+        // Find the member in the passengers array
+        for (int j = 0; j < member.flightsCounter; j++) {
+            if (member.bookedFlights[j].getFlightNum().equals(this.getFlightNum())) {
+                // Shift all passengers after the one to be removed
+                for (int g = j; j < member.flightsCounter - 1; j++) {
+                    member.bookedFlights[g] = member.bookedFlights[g + 1];
+                }
+                // Reduce the passenger count and set the last one to null
+                member.bookedFlights[--member.flightsCounter] = null;
+                found = true;
+                break;
+            }
+        }
+
+        for (int i = 0; i < passengerCounter; i++) {
+            if (passengers[i].getUsername().equals(member.getUsername())) {
+                // Shift all passengers after the one to be removed
+                for (int j = i; j < passengerCounter - 1; j++) {
+                    passengers[j] = passengers[j + 1];
+                }
+                // Reduce the passenger count and set the last one to null
+                passengers[--passengerCounter] = null;
+                found = true;
+                break;
+            }
+        }
+
+        return found; // Return true if the member was found and removed
+    }
+
     public boolean hasMember(Member member) {
         for (int i = 0; i < passengerCounter; i++) {
             if (passengers[i].getUsername().equals(member.getUsername())) {
-                return true; // Member found in this flight
+                return false; // Member found in this flight
             }
         }
-        return false;
+        return true;
     }
 
     // Getters
@@ -76,22 +108,5 @@ public class Flight implements Serializable {
         return distance;
     }
 
-    public boolean removePassenger(Member member) {
-        boolean found = false;
-        // Find the member in the passengers array
-        for (int i = 0; i < passengerCounter; i++) {
-            if (passengers[i].getUsername().equals(member.getUsername())) {
-                // Shift all passengers after the one to be removed
-                for (int j = i; j < passengerCounter - 1; j++) {
-                    passengers[j] = passengers[j + 1];
-                }
-                // Reduce the passenger count and set the last one to null
-                passengers[--passengerCounter] = null;
-                found = true;
-                break;
-            }
-        }
 
-        return found; // Return true if the member was found and removed
-    }
 }

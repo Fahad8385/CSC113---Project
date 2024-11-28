@@ -71,23 +71,24 @@ public class LoyaltyProgram {
         return false;
     }
 
-    public void listFlights() {
+    public boolean listFlights() {
         if (numOfFlights > 0) {
             System.out.println(" - Available Flights: ");
             for (int i = 0; i < numOfFlights; i++) {
                 System.out.printf("%-3d # Departure: %-9s # Destination: %-9s # Flight Number: %s%n",
                         (i + 1), flights[i].getDeparture(), flights[i].getDestination(), flights[i].getFlightNum());
             }
+            return true;
         } else {
             System.out.println("There are no flights available.");
+            return false;
         }
     }
 
     // Book Flight
     public boolean bookFlight(Member member) {
-
+        int attempts = 0;
         // Check if the member has been reached max of booking
-
         if (member.getFlightsCounter() == member.bookedFlights.length) { // added Unchecked Ex. (1)
             throw new IllegalStateException("Sorry... You have reached maximum of booked flights.");
         }
@@ -96,7 +97,9 @@ public class LoyaltyProgram {
         boolean state = false;
 
         // Printing Flights Details
-        listFlights();
+
+        if (!listFlights())
+            return false;
         do {
             System.out.print("Enter the flight number you'd like to book: ");
             choice = scanner.next().toUpperCase();
@@ -104,8 +107,8 @@ public class LoyaltyProgram {
             for (int i = 0; i < numOfFlights; i++) {
                 if (choice.equals(flights[i].getFlightNum())) {
                     // 1. Add the member to passengers, Add the flight to bookedFlights
-                    if (flights[i].addMember(member)) {
-                        member.addFlight(flights[i]);
+                    if (member.addFlight(flights[i])) {
+                        flights[i].addMember(member);
                         System.out.println("Flight booked successfully!");
                         state = true;
                     } else {
@@ -143,6 +146,11 @@ public class LoyaltyProgram {
             }
             if (!state) {
                 System.out.println("Invalid flight number. Please try again.");
+                attempts++;
+            }
+            if (attempts >= 3) {
+                System.out.println("Too many invalid tries..."); // added a try limit
+                break;
             }
 
         } while (!state);
@@ -190,12 +198,13 @@ public class LoyaltyProgram {
                     boolean removedFromFlight = member.bookedFlights[i].removePassenger(member);
 
                     if (removedFromFlight) {
+
                         // Shift all elements after the removed flight
                         for (int j = i; j < member.flightsCounter - 1; j++) {
                             member.bookedFlights[j] = member.bookedFlights[j + 1];
                         }
                         // Decrease flight counter and set the last flight to null
-                        member.bookedFlights[--member.flightsCounter] = null;
+                        // member.bookedFlights[--member.flightsCounter] = null;
 
                         found = true;
                         System.out.println("Flight canceled and passenger removed...");
@@ -221,6 +230,8 @@ public class LoyaltyProgram {
             System.out.println("Error saving data: " + e.getMessage());
         }
     }
+
+
     public void saveMembersToFile(String filename) throws IOException { // Save members list to file
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(members);
