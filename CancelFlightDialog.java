@@ -1,58 +1,77 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class CancelFlightDialog {
-    private JDialog dialog;
+    private JDialog cancelDialog;
     private JTextField flightNumberField;
     private JButton submitButton, returnButton;
 
-    public CancelFlightDialog(LoyaltyProgram loyaltyProgram, Member member) {
-        dialog = new JDialog();
-        dialog.setTitle("Cancel Flight");
-        dialog.setSize(400, 300);
-        dialog.setLayout(new GridBagLayout());
+    public CancelFlightDialog(LoyaltyProgramGUI loyaltyProgramGUI, Member member) {
+        cancelDialog = new JDialog();
+        cancelDialog.setTitle("Cancel Flight");
+        cancelDialog.setSize(500, 400);
+        cancelDialog.setLayout(new GridBagLayout());
+        cancelDialog.setResizable(false);
         GridBagConstraints gbc = new GridBagConstraints();
+        cancelDialog.setLocationRelativeTo(null);
 
-        // Show list of booked flights
         JLabel bookedFlightsLabel = new JLabel("Booked Flights:");
-        gbc.gridx = 0; gbc.gridy = 0;
-        dialog.add(bookedFlightsLabel, gbc);
 
-        // List booked flights
-        StringBuilder bookedFlightList = new StringBuilder("<html>");
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
+        cancelDialog.add(bookedFlightsLabel, gbc);
+
+        // Booked flights list in a scroll pane
+        StringBuilder bookedFlightList = new StringBuilder();
         if (member.getFlightsCounter() > 0) {
             for (Flight bookedFlight : member.getBookedFlights()) {
                 if (bookedFlight != null) {
                     bookedFlightList.append("Flight Number: ").append(bookedFlight.getFlightNum())
                             .append(" | From: ").append(bookedFlight.getDeparture())
                             .append(" | To: ").append(bookedFlight.getDestination())
-                            .append("<br>");
+                            .append("\n");
                 }
             }
         } else {
             bookedFlightList.append("No flights booked.");
         }
-        bookedFlightList.append("</html>");
 
-        // Display the list of booked flights in the dialog
-        JLabel flightsLabel = new JLabel(bookedFlightList.toString());
-        gbc.gridx = 0; gbc.gridy = 1;
-        dialog.add(flightsLabel, gbc);
+        JTextArea flightsTextArea = new JTextArea(10, 40); // Multi-line, fixed size
+        flightsTextArea.setText(bookedFlightList.toString());
+        flightsTextArea.setEditable(false);
+        flightsTextArea.setLineWrap(true);
+        flightsTextArea.setWrapStyleWord(true);
+
+        JScrollPane scrollPane = new JScrollPane(flightsTextArea);
+        flightsTextArea.setCaretPosition(0);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH; // Allow the scroll pane to expand
+        cancelDialog.add(scrollPane, gbc);
 
         // Input field for flight number
         JLabel flightNumberLabel = new JLabel("Enter Flight Number to Cancel:");
-        gbc.gridx = 0; gbc.gridy = 2;
-        dialog.add(flightNumberLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        cancelDialog.add(flightNumberLabel, gbc);
 
         flightNumberField = new JTextField(15);
-        gbc.gridx = 1; gbc.gridy = 2;
-        dialog.add(flightNumberField, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        cancelDialog.add(flightNumberField, gbc);
 
         // Submit button
-        submitButton = new JButton("Submit");
-        gbc.gridx = 1; gbc.gridy = 3;
-        dialog.add(submitButton, gbc);
+        submitButton = new JButton("Cancel Booking");
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.EAST;
+        cancelDialog.add(submitButton, gbc);
 
         submitButton.addActionListener(e -> {
             String flightNumber = flightNumberField.getText().toUpperCase();
@@ -61,27 +80,30 @@ public class CancelFlightDialog {
             // Check if the flight is booked
             for (Flight bookedFlight : member.getBookedFlights()) {
                 if (bookedFlight != null && bookedFlight.getFlightNum().equals(flightNumber)) {
-                    // Cancel the flight
                     member.removeFlight(bookedFlight);
                     bookedFlight.removePassenger(member);
-                    JOptionPane.showMessageDialog(dialog, "Flight canceled successfully!");
+                    JOptionPane.showMessageDialog(cancelDialog, "Flight canceled successfully!");
+                    loyaltyProgramGUI.cancelFlight(member, bookedFlight);
                     flightFound = true;
+                    cancelDialog.dispose();
                     break;
                 }
             }
 
             if (!flightFound) {
-                JOptionPane.showMessageDialog(dialog, "This flight is not in your bookings.");
+                JOptionPane.showMessageDialog(cancelDialog, "This flight is not in your bookings.");
             }
         });
 
         // Return to main menu button
         returnButton = new JButton("Return to Main Menu");
-        gbc.gridx = 1; gbc.gridy = 4;
-        dialog.add(returnButton, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        cancelDialog.add(returnButton, gbc);
 
-        returnButton.addActionListener(e -> dialog.setVisible(false));  // Close dialog
+        returnButton.addActionListener(e -> cancelDialog.setVisible(false));
 
-        dialog.setVisible(true);
+        cancelDialog.setVisible(true);
     }
 }
