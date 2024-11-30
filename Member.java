@@ -74,6 +74,10 @@ public abstract class Member implements Serializable {
         return flightsCounter;
     }
 
+    public Flight[] getBookedFlights() {
+        return bookedFlights; // Return the array of booked flights
+    }
+
     public boolean printBookedFlights() {
         if (flightsCounter > 0) {
             for (int i = 0; i < flightsCounter; i++) {
